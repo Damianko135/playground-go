@@ -4,205 +4,265 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 
 	"github.com/magefile/mage/mg"
+	"github.com/magefile/mage/sh"
 )
 
-// Default task: build the project.
 var Default = Build
 
-// Binary names
 const (
-	winBin  = "bin/main.exe"
+	winBin   = "bin/main.exe"
 	linuxBin = "bin/main"
+	cmdPath  = "cmd/server/main.go"
+
+	toolTempl        = "templ"
+	toolAir          = "air"
+	toolGolangciLint = "golangci-lint"
+	toolGolds        = "golds"
 )
 
-// Build compiles the Go application into ./bin/
+func outputBin() string {
+	if runtime.GOOS == "windows" {
+		return winBin
+	}
+	return linuxBin
+}
+
+func runCmd(name string, args ...string) error {
+	fmt.Printf("Running: %s %v\n", name, args)
+	return sh.Run(name, args...)
+}
+
+func ensureTool(tool string) error {
+	_, err := exec.LookPath(tool)
+	if err != nil {
+		return fmt.Errorf("required tool '%s' not found in PATH", tool)
+	}
+	return nil
+}
+
+func Clean() error {
+	fmt.Println("🧹 Cleaning...")
+	return os.RemoveAll("bin")
+}
+
 func Build() error {
-	fmt.Println("🧹 Cleaning up previous builds...")
-	_ = os.RemoveAll("./bin")
-	_ = os.MkdirAll("./bin", 0755)
-
-	fmt.Println("🔨 Building the application...")
-	output := linuxBin
-	if runtime.GOOS == "windows" {
-		output = winBin
-	}
-
-	cmd := exec.Command("go", "build", "-o", output, "cmd/server/main.go")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+	mg.Deps(Clean)
+	fmt.Println("🔨 Building...")
+	return runCmd("go", "build", "-o", outputBin(), cmdPath)
 }
 
-// BuildWithTags builds with optional tags (e.g., mage buildWithTags debug).
-func BuildWithTags(tags string) error {
-	fmt.Printf("🔨 Building with tags: %s\n", tags)
-	output := linuxBin
-	if runtime.GOOS == "windows" {
-		output = winBin
-	}
-
-	cmd := exec.Command("go", "build", "-tags", tags, "-o", output, "cmd/server/main.go")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+func Tags(tag string) error {
+	fmt.Printf("🔨 Building with tag: %s\n", tag)
+	return runCmd("go", "build", "-tags", tag, "-o", outputBin(), cmdPath)
 }
 
-// Run starts the compiled binary.
 func Run() error {
-	fmt.Println("🚀 Running the application...")
-
-	bin := linuxBin
-	if runtime.GOOS == "windows" {
-		bin = winBin
-	}
-
+	bin := outputBin()
 	if _, err := os.Stat(bin); os.IsNotExist(err) {
-		fmt.Println("Binary not found, building first...")
+		fmt.Println("⚠️ Binary missing — building first...")
 		if err := Build(); err != nil {
-			return fmt.Errorf("build failed: %w", err)
+			return err
 		}
 	}
-
-	cmd := exec.Command("./" + bin)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	cmd.Stdin = os.Stdin
-	return cmd.Run()
+	fmt.Println("🚀 Running...")
+	return runCmd("./" + bin)
 }
 
-// Dev mode: generate templ files and run uncompiled app
 func Dev() error {
-	fmt.Println("🛠️  Running in development mode...")
+	if err := ensureTool(toolTempl); err != nil {
+		return err
+	}
+	if err := ensureTool(toolAir); err != nil {
+		fmt.Println("⚠️ Air not found, falling back to basic dev mode")
+		return DevBasic()
+	}
 
-	if err := exec.Command("templ", "generate").Run(); err != nil {
-		fmt.Println("Templ generation failed:", err)
+	fmt.Println("🛠️ Generating templ files...")
+	if err := runCmd(toolTempl, "generate"); err != nil {
 		return err
 	}
 
-	cmd := exec.Command("go", "run", "cmd/server/main.go")
+	cmd := exec.Command(toolAir, "-c", "../../.air.toml")
+	cmd.Dir = "cmd/server"
+	cmd.Env = append(os.Environ(), "GO_ENV=development", "PORT=3000")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+
+	fmt.Println("🚀 Starting development server with hot reload...")
+	fmt.Println("📍 http://localhost:3000")
+	return cmd.Run()
+}
+
+func DevBasic() error {
+	fmt.Println("🛠️ Generating templ files...")
+	if err := runCmd(toolTempl, "generate"); err != nil {
+		return err
+	}
+
+	fmt.Println("🔄 Running in basic dev mode...")
+	cmd := exec.Command("go", "run", ".")
+	cmd.Dir = "cmd/server"
+	cmd.Env = append(os.Environ(), "GO_ENV=development", "PORT=3000")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
 	return cmd.Run()
 }
 
-// Install copies the binary to $GOBIN or /usr/local/bin
-func Install() error {
-	fmt.Println("📦 Installing binary...")
-
-	dest := os.Getenv("GOBIN")
-	if dest == "" {
-		dest = "/usr/local/bin"
-	}
-	binary := linuxBin
-	if runtime.GOOS == "windows" {
-		binary = winBin
-		dest = os.Getenv("GOBIN") // user-defined GOBIN is a must
-	}
-	if dest == "" {
-		return fmt.Errorf("GOBIN not set, and default location invalid on Windows")
-	}
-
-	fmt.Printf("📂 Installing to %s\n", dest)
-	cmd := exec.Command("cp", binary, dest)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+func Srv() error {
+	fmt.Println("🌀 Running server package...")
+	return runCmd("go", "run", "./cmd/server")
 }
 
-// Clean removes bin and generated files
-func Clean() error {
-	fmt.Println("🧹 Cleaning build artifacts...")
-	return os.RemoveAll("./bin")
+func Hot() error {
+	if err := ensureTool(toolAir); err != nil {
+		return err
+	}
+	fmt.Println("♻️ Running with Air (hot reload)...")
+	return runCmd(toolAir)
 }
 
-// Tidy runs go mod tidy
-func Tidy() error {
-	fmt.Println("🧹 Tidying dependencies...")
-	cmd := exec.Command("go", "mod", "tidy")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
-// Test runs all unit tests
 func Test() error {
 	fmt.Println("🧪 Running tests...")
-	cmd := exec.Command("go", "test", "./...")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+	return runCmd("go", "test", "./...")
 }
 
-// Lint runs golangci-lint
 func Lint() error {
-	fmt.Println("🪄 Checking code style...")
-	if err := exec.Command("golangci-lint", "--version").Run(); err != nil {
-		fmt.Println("golangci-lint is not installed. Install: https://golangci-lint.run/usage/install/")
+	if err := ensureTool(toolGolangciLint); err != nil {
+		fmt.Println("Install: https://golangci-lint.run/usage/install/")
 		return err
 	}
-	cmd := exec.Command("golangci-lint", "run")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+	fmt.Println("🪄 Running linter...")
+	return runCmd(toolGolangciLint, "run")
 }
 
-// Generate runs all code generation tools
-func Generate() error {
-	fmt.Println("⚙️  Running go generate...")
-	cmd := exec.Command("go", "generate", "./...")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
+func copyFile(src, dst string) error {
+	in, err := os.Open(src)
+	if err != nil {
 		return err
 	}
+	defer in.Close()
 
-	fmt.Println("🧬 Running templ generate...")
-	cmd = exec.Command("templ", "generate")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
-// Docker builds the Docker image
-func Docker() error {
-	fmt.Println("🐳 Building Docker image...")
-	cmd := exec.Command("docker", "build", "-t", "myapp:latest", ".")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
-// CI runs lint, test, and build — for CI pipelines
-func CI() error {
-	fmt.Println("🔁 Running CI tasks...")
-	if err := Lint(); err != nil {
+	out, err := os.Create(dst)
+	if err != nil {
 		return err
 	}
-	if err := Test(); err != nil {
+	defer out.Close()
+
+	if _, err := io.Copy(out, in); err != nil {
 		return err
 	}
-	return Build()
+	return out.Sync()
 }
 
-// Docs task group
+func Install() error {
+	dest := os.Getenv("GOBIN")
+	if dest == "" {
+		if runtime.GOOS == "windows" {
+			return fmt.Errorf("GOBIN must be set on Windows")
+		}
+		dest = "/usr/local/bin"
+	}
+	fmt.Printf("📦 Installing to %s...\n", dest)
+	binPath := outputBin()
+	destPath := filepath.Join(dest, filepath.Base(binPath))
+	return copyFile(binPath, destPath)
+}
+
+// Docs namespace
 type Docs mg.Namespace
 
-// Generate markdown docs
-func (Docs) Generate() error {
-	fmt.Println("📚 Generating static documentation with golds...")
-
-	cmd := exec.Command("golds "," -out=docs.md " ," -gen "," -dir=generated "," -nouses "," std")
-
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+func (Docs) Gen() error {
+	if err := ensureTool(toolGolds); err != nil {
+		return err
+	}
+	fmt.Println("📚 Generating docs with golds...")
+	return runCmd(toolGolds, "-dir=.", "-gen", "-nouses", "-out=DOCS.md")
 }
 
+func CI() error {
+	fmt.Println("🔁 Running CI steps...")
+	mg.SerialDeps(Lint, Test, Build)
+	return nil
+}
 
+func Format() error {
+	fmt.Println("🧹 Formatting code...")
+	return runCmd("gofmt", "-s", "-w", ".")
+}
 
+func Watch() error {
+	if err := ensureTool(toolTempl); err != nil {
+		return err
+	}
+	fmt.Println("👁️ Watching templ files for changes...")
+	fmt.Println("Press Ctrl+C to stop watching")
+	return runCmd(toolTempl, "generate", "--watch")
+}
+
+func DevTools() error {
+	tools := []struct {
+		name string
+		pkg  string
+	}{
+		{toolTempl, "github.com/a-h/templ/cmd/templ@latest"},
+		{toolAir, "github.com/cosmtrek/air@latest"},
+		{toolGolangciLint, "github.com/golangci/golangci-lint/cmd/golangci-lint@latest"},
+	}
+	fmt.Println("🛠️ Installing development tools...")
+	for _, tool := range tools {
+		fmt.Printf("Installing %s...\n", tool.name)
+		if err := runCmd("go", "install", tool.pkg); err != nil {
+			fmt.Printf("❌ Failed to install %s: %v\n", tool.name, err)
+			continue
+		}
+		fmt.Printf("✅ %s installed successfully\n", tool.name)
+	}
+	return nil
+}
+
+func DevClean() error {
+	fmt.Println("🧹 Cleaning development artifacts...")
+	_ = os.RemoveAll("tmp")
+
+	fmt.Println("Cleaning generated templ files...")
+	if err := runCmd("find", ".", "-name", "*_templ.go", "-delete"); err != nil {
+		fmt.Printf("Warning: find failed: %v\n", err)
+		_ = runCmd("powershell", "-Command", "Get-ChildItem -Recurse -Filter '*_templ.go' | Remove-Item")
+	}
+
+	fmt.Println("Cleaning go build cache...")
+	_ = runCmd("go", "clean", "-cache")
+	return Clean()
+}
+
+func Help() {
+	fmt.Println(`Available targets:
+  clean       - Remove build artifacts
+  build       - Build the main binary
+  tags        - Build with custom tags (usage: mage tags -tag=debug)
+  run         - Run the built binary
+  dev         - Run development mode with hot reload (or fallback)
+  devbasic    - Run development mode without hot reload
+  hot         - Run hot reload using air
+  srv         - Run server package
+  test        - Run tests
+  lint        - Run golangci-lint
+  install     - Install binary to GOBIN or /usr/local/bin
+  docs:gen    - Generate documentation
+  ci          - Run CI steps: lint, test, build
+  format      - Format code with gofmt
+  watch       - Watch templ files and regenerate on changes
+  devtools    - Install development tools
+  devclean    - Clean development artifacts and caches
+  help        - Show this help message
+`)
+}

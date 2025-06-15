@@ -2,29 +2,36 @@ package main
 
 import (
 	"fmt"
-	
+	"os"
+
+	"github.com/Damianko135/playground-go/internal/utils"
+	"github.com/Damianko135/playground-go/views"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/Damianko135/playground-go/views"
-	"github.com/Damianko135/playground-go/internal/utils"
 )
 
 func main() {
 	fmt.Println("🔧 Starting Echo server...")
 	e := echo.New()
-	// e.Use(middleware.Logger())
+
+	// Enable debug mode and logging in development
+	if os.Getenv("GO_ENV") == "development" {
+		e.Debug = true
+		// e.Use(middleware.Logger())
+		fmt.Println("🐛 Debug mode enabled")
+	}
+
 	e.Use(middleware.Recover())
 
-	// Route to render your templ component
-	e.GET("/", func(c echo.Context) error {
-		// Render the Init templ component to the Echo response
-		return views.Home().Render(c.Request().Context(), c.Response().Writer)
-	})
-
+	// Serve homepage using your render helper
 	e.GET("/", utils.Render(views.Home()))
-	// Start server
-	e.Logger.Fatal(e.Start(":8080"))
+
+	// Use PORT environment variable or default to 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	fmt.Printf("🚀 Server starting on port %s\n", port)
+	e.Logger.Fatal(e.Start(":" + port))
 }
-
-
-
