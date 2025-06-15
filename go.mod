@@ -4,10 +4,7 @@ go 1.24.4
 
 require github.com/labstack/echo/v4 v4.13.4 // direct
 
-require (
-	github.com/a-h/templ v0.3.898
-	github.com/magefile/mage v1.15.0
-)
+require github.com/a-h/templ v0.3.898
 
 require (
 	github.com/labstack/gommon v0.4.2 // indirect

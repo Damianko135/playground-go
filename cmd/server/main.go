@@ -17,19 +17,23 @@ func main() {
 	// Enable debug mode and logging in development
 	if os.Getenv("GO_ENV") == "development" {
 		e.Debug = true
-		// e.Use(middleware.Logger())
+		// Uncomment below for request logging during development
+		e.Use(middleware.Logger())
 		fmt.Println("🐛 Debug mode enabled")
 	}
-
 	e.Use(middleware.Recover())
 
+	e.Static("/", "./public")
+
 	// Serve homepage using your render helper
-	e.GET("/", utils.Render(views.Home()))
+	e.GET("/", utils.Temple(views.Home()))
+	e.GET("/about", utils.Temple(views.About()))
 
 	// Use PORT environment variable or default to 8080
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
+	port, err := utils.GetEnvVar("PORT", "8080")
+	if err != nil {
+		e.Logger.Fatal(fmt.Sprintf("Failed to get PORT: %v", err))
+		return
 	}
 
 	fmt.Printf("🚀 Server starting on port %s\n", port)
