@@ -5,104 +5,221 @@ templ Home() {
 }
 
 templ homeContent() {
-	<!-- Hero Section -->
-	<div class="text-center mb-12">
-		<div class="inline-block p-4 bg-white rounded-full shadow-lg mb-6">
-			<div class="text-6xl">👋</div>
+	<!-- Hero Section with Animated Background -->
+	<div class="relative overflow-hidden mb-16">
+		<!-- Animated Background Elements -->
+		<div class="absolute inset-0 -z-10">
+			<div class="absolute top-10 left-10 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
+			<div class="absolute top-32 right-20 w-24 h-24 bg-emerald-300 rounded-full opacity-30 animate-bounce"></div>
+			<div class="absolute bottom-20 left-1/4 w-16 h-16 bg-green-400 rounded-full opacity-25 animate-pulse"></div>
 		</div>
-		<h1 class="text-5xl font-bold text-green-800 mb-4">
-			Hello, World!
-		</h1>
-		<p class="text-xl text-green-600 mb-8 max-w-2xl mx-auto">
-			Welcome to your beautiful Templ web application! This is a modern, responsive hello world app built with Go, Templ, and Tailwind CSS.
-		</p>
-		<div class="flex flex-col sm:flex-row gap-4 justify-center">
-			<button class="btn-primary px-8 py-3 text-lg">
-				Get Started 🚀
-			</button>
-			<a href="/about" class="btn-secondary px-8 py-3 text-lg">
-				Learn More
-			</a>
-		</div>
-	</div>
-
-	<!-- Features Grid -->
-	<div class="grid md:grid-cols-3 gap-8 mb-12">
-		<div class="card text-center">
-			<div class="text-4xl mb-4">⚡</div>
-			<h3 class="card-header">Fast & Efficient</h3>
-			<p class="text-green-600">Built with Go for lightning-fast performance and minimal resource usage.</p>
-		</div>
-		<div class="card text-center">
-			<div class="text-4xl mb-4">🎨</div>
-			<h3 class="card-header">Beautiful Design</h3>
-			<p class="text-green-600">Styled with Tailwind CSS for a modern, responsive user interface.</p>
-		</div>
-		<div class="card text-center">
-			<div class="text-4xl mb-4">🔧</div>
-			<h3 class="card-header">Easy to Use</h3>
-			<p class="text-green-600">Templ makes it simple to build type-safe HTML templates in Go.</p>
+		
+		<div class="text-center py-16">
+			<div class="inline-block p-6 bg-gradient-to-br from-white via-green-50 to-emerald-100 rounded-3xl shadow-2xl mb-8 transform hover:scale-105 transition-all duration-300">
+				<div class="text-8xl animate-bounce">👋</div>
+			</div>
+			<h1 class="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-green-600 via-emerald-600 to-green-800 bg-clip-text text-transparent mb-6 animate-fade-in">
+				Hello, World!
+			</h1>
+			<p class="text-2xl text-green-700 mb-10 max-w-4xl mx-auto leading-relaxed font-light">
+				Welcome to your <span class="font-semibold text-emerald-600">stunning</span> Templ web application! 
+				Experience the perfect blend of <span class="font-semibold text-green-600">Go's performance</span>, 
+				<span class="font-semibold text-emerald-600">Templ's type safety</span>, and 
+				<span class="font-semibold text-green-600">Tailwind's beauty</span>.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+				<button class="group relative px-10 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+					<span class="relative z-10">Get Started 🚀</span>
+					<div class="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+				</button>
+				<a href="/about" class="group px-10 py-4 bg-white text-green-700 text-xl font-semibold rounded-2xl shadow-lg hover:shadow-xl border-2 border-green-200 hover:border-green-400 transform hover:-translate-y-1 transition-all duration-300">
+					<span class="group-hover:text-green-800">Learn More</span>
+				</a>
+			</div>
 		</div>
 	</div>
-
-	<!-- Interactive Demo Section -->
-	<div class="card mb-12">
-		<h2 class="card-header">Interactive Demo</h2>
-		<div class="space-y-4">
+	<!-- Enhanced Features Grid with Hover Effects -->
+	<div class="grid md:grid-cols-3 gap-8 mb-16">
+		<div class="group card hover:bg-gradient-to-br hover:from-green-50 hover:to-emerald-100 transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl">
+			<div class="text-center">
+				<div class="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">⚡</div>
+				<h3 class="text-2xl font-bold text-green-800 mb-4 group-hover:text-emerald-700">Lightning Fast</h3>
+				<p class="text-green-600 leading-relaxed group-hover:text-green-700">
+					Powered by <span class="font-semibold">Go's compiled performance</span> for 
+					blazing-fast execution and minimal resource footprint.
+				</p>
+				<div class="mt-4 w-full bg-green-100 rounded-full h-2">
+					<div class="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full group-hover:animate-pulse" style="width: 95%"></div>
+				</div>
+			</div>
+		</div>
+		<div class="group card hover:bg-gradient-to-br hover:from-emerald-50 hover:to-green-100 transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl">
+			<div class="text-center">
+				<div class="text-6xl mb-6 transform group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300">🎨</div>
+				<h3 class="text-2xl font-bold text-green-800 mb-4 group-hover:text-emerald-700">Stunning Design</h3>
+				<p class="text-green-600 leading-relaxed group-hover:text-green-700">
+					Crafted with <span class="font-semibold">Tailwind CSS</span> for a 
+					modern, responsive, and visually stunning user experience.
+				</p>
+				<div class="mt-4 w-full bg-emerald-100 rounded-full h-2">
+					<div class="bg-gradient-to-r from-emerald-400 to-green-500 h-2 rounded-full group-hover:animate-pulse" style="width: 100%"></div>
+				</div>
+			</div>
+		</div>
+		<div class="group card hover:bg-gradient-to-br hover:from-green-50 hover:to-emerald-100 transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl">
+			<div class="text-center">
+				<div class="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">🔧</div>
+				<h3 class="text-2xl font-bold text-green-800 mb-4 group-hover:text-emerald-700">Type-Safe</h3>
+				<p class="text-green-600 leading-relaxed group-hover:text-green-700">
+					Built with <span class="font-semibold">Templ's type safety</span> ensuring 
+					robust, maintainable HTML templates with compile-time checks.
+				</p>
+				<div class="mt-4 w-full bg-green-100 rounded-full h-2">
+					<div class="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full group-hover:animate-pulse" style="width: 90%"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Enhanced Interactive Demo Section -->
+	<div class="relative card mb-16 bg-gradient-to-br from-white via-green-50 to-emerald-50 border-2 border-green-200 shadow-2xl">
+		<div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-200 to-transparent rounded-bl-full opacity-30"></div>
+		<h2 class="text-3xl font-bold text-green-800 mb-6 flex items-center">
+			<span class="text-4xl mr-3">🎮</span>
+			Interactive Demo
+		</h2>
+		<div class="space-y-6">
 			<div class="form-group">
-				<label class="block text-green-700 font-semibold mb-2">Your Name:</label>
-				<input type="text" id="nameInput" class="input-field" placeholder="Enter your name..." />
+				<label class="block text-green-800 font-bold mb-3 text-lg">What's your name?</label>
+				<div class="relative">
+					<input type="text" id="nameInput" class="w-full px-6 py-4 text-lg border-2 border-green-300 rounded-2xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-200 transition-all duration-300 shadow-inner bg-white" placeholder="Enter your amazing name..." />
+					<div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-400">
+						<span class="text-2xl">✨</span>
+					</div>
+				</div>
 			</div>
-			<button onclick="greetUser()" class="btn-primary">
-				Say Hello! 👋
+			<button onclick="greetUser()" class="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+				<span class="relative z-10 flex items-center">
+					<span class="mr-2">Say Hello!</span>
+					<span class="text-2xl group-hover:animate-bounce">👋</span>
+				</span>
+				<div class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-green-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 			</button>
-			<div id="greeting" class="alert-success hidden">
-				<strong>Hello there!</strong> Nice to meet you! 🎉
+			<div id="greeting" class="hidden p-6 bg-gradient-to-r from-green-100 to-emerald-100 border-l-8 border-green-500 rounded-2xl shadow-lg transform scale-95 transition-all duration-500">
+				<div class="flex items-center">
+					<span class="text-3xl mr-3 animate-bounce">🎉</span>
+					<div>
+						<strong class="text-green-800 text-xl">Hello there!</strong>
+						<p class="text-green-700 mt-1">Nice to meet you! Welcome to our amazing Templ app!</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- Stats Section -->
-	<div class="grid md:grid-cols-4 gap-6 mb-12">
-		<div class="text-center">
-			<div class="text-3xl font-bold text-green-800">100%</div>
-			<div class="text-green-600">Type Safe</div>
+	<!-- Enhanced Stats Section with Animations -->
+	<div class="grid md:grid-cols-4 gap-8 mb-16">
+		<div class="group text-center p-6 bg-white rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-green-100">
+			<div class="text-5xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">100%</div>
+			<div class="text-green-700 font-semibold text-lg group-hover:text-emerald-600">Type Safe</div>
+			<div class="w-full bg-green-100 rounded-full h-1 mt-3">
+				<div class="bg-gradient-to-r from-green-500 to-emerald-500 h-1 rounded-full group-hover:animate-pulse" style="width: 100%"></div>
+			</div>
 		</div>
-		<div class="text-center">
-			<div class="text-3xl font-bold text-green-800">⚡</div>
-			<div class="text-green-600">Lightning Fast</div>
+		<div class="group text-center p-6 bg-white rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-emerald-100">
+			<div class="text-5xl mb-3 group-hover:animate-bounce transition-all duration-300">⚡</div>
+			<div class="text-emerald-700 font-semibold text-lg group-hover:text-green-600">Lightning Fast</div>
+			<div class="w-full bg-emerald-100 rounded-full h-1 mt-3">
+				<div class="bg-gradient-to-r from-emerald-500 to-green-500 h-1 rounded-full group-hover:animate-pulse" style="width: 95%"></div>
+			</div>
 		</div>
-		<div class="text-center">
-			<div class="text-3xl font-bold text-green-800">🎨</div>
-			<div class="text-green-600">Beautiful UI</div>
+		<div class="group text-center p-6 bg-white rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-green-100">
+			<div class="text-5xl mb-3 group-hover:animate-pulse transition-all duration-300">🎨</div>
+			<div class="text-green-700 font-semibold text-lg group-hover:text-emerald-600">Beautiful UI</div>
+			<div class="w-full bg-green-100 rounded-full h-1 mt-3">
+				<div class="bg-gradient-to-r from-green-500 to-emerald-500 h-1 rounded-full group-hover:animate-pulse" style="width: 100%"></div>
+			</div>
 		</div>
-		<div class="text-center">
-			<div class="text-3xl font-bold text-green-800">🚀</div>
-			<div class="text-green-600">Production Ready</div>
+		<div class="group text-center p-6 bg-white rounded-3xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-emerald-100">
+			<div class="text-5xl mb-3 group-hover:animate-bounce transition-all duration-300">🚀</div>
+			<div class="text-emerald-700 font-semibold text-lg group-hover:text-green-600">Production Ready</div>
+			<div class="w-full bg-emerald-100 rounded-full h-1 mt-3">
+				<div class="bg-gradient-to-r from-emerald-500 to-green-500 h-1 rounded-full group-hover:animate-pulse" style="width: 98%"></div>
+			</div>
 		</div>
 	</div>
-
-	<!-- JavaScript for interactivity -->
+	<!-- Enhanced JavaScript for interactivity -->
 	<script>
 		function greetUser() {
 			const nameInput = document.getElementById('nameInput');
 			const greeting = document.getElementById('greeting');
 			const name = nameInput.value.trim();
 			
+			// Add visual feedback
+			nameInput.style.transform = 'scale(0.95)';
+			setTimeout(() => nameInput.style.transform = 'scale(1)', 150);
+			
 			if (name) {
-				greeting.innerHTML = `<strong>Hello, ${name}!</strong> Welcome to our Templ app! 🎉`;
+				greeting.innerHTML = `
+					<div class="flex items-center">
+						<span class="text-4xl mr-4 animate-bounce">🎉</span>
+						<div>
+							<strong class="text-emerald-800 text-2xl">Hello, ${name}!</strong>
+							<p class="text-emerald-700 mt-2 text-lg">What a fantastic name! Welcome to our amazing Templ app! ✨</p>
+						</div>
+					</div>
+				`;
 			} else {
-				greeting.innerHTML = `<strong>Hello there!</strong> Nice to meet you! 🎉`;
+				greeting.innerHTML = `
+					<div class="flex items-center">
+						<span class="text-4xl mr-4 animate-bounce">👋</span>
+						<div>
+							<strong class="text-green-800 text-2xl">Hello there, mysterious visitor!</strong>
+							<p class="text-green-700 mt-2 text-lg">Nice to meet you! Welcome to our incredible Templ app! �</p>
+						</div>
+					</div>
+				`;
 			}
 			
 			greeting.classList.remove('hidden');
+			greeting.style.transform = 'scale(1)';
+			
+			// Add a subtle shake animation to the greeting
+			setTimeout(() => {
+				greeting.style.animation = 'shake 0.5s ease-in-out';
+			}, 100);
 		}
 
-		// Add enter key support
+		// Enhanced enter key support with visual feedback
 		document.getElementById('nameInput').addEventListener('keypress', function(e) {
 			if (e.key === 'Enter') {
 				greetUser();
 			}
 		});
+
+		// Add focus effects
+		document.getElementById('nameInput').addEventListener('focus', function() {
+			this.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.3)';
+		});
+
+		document.getElementById('nameInput').addEventListener('blur', function() {
+			this.style.boxShadow = '';
+		});
+
+		// Add CSS for shake animation
+		const style = document.createElement('style');
+		style.textContent = `
+			@keyframes shake {
+				0%, 100% { transform: translateX(0); }
+				25% { transform: translateX(-5px); }
+				75% { transform: translateX(5px); }
+			}
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(20px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+			.animate-fade-in {
+				animation: fadeIn 1s ease-out;
+			}
+		`;
+		document.head.appendChild(style);
 	</script>
 }

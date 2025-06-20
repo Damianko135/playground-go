@@ -15,7 +15,7 @@ func Tools() error {
 		pkg  string
 	}{
 		{toolTempl, "github.com/a-h/templ/cmd/templ@latest"},
-		{toolAir, "github.com/cosmtrek/air@latest"},
+		{toolAir, "github.com/air-verse/air@latest"},
 		{toolGolangciLint, "github.com/golangci/golangci-lint/cmd/golangci-lint@latest"},
 	}
 	fmt.Println("🛠️ Installing development tools...")
