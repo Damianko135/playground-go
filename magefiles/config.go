@@ -6,7 +6,7 @@ import (
 	"runtime"
 )
 
-var Default = Build
+var Default = Help
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 

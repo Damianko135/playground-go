@@ -33,7 +33,7 @@ func Dev() error {
 	if runtime.GOOS == "windows" {
 		tailwindPath += ".cmd"
 	}
-	tailwindCmd := exec.Command(tailwindPath, "-i", "./internal/app.css", "-o", "./static/index.css", "--minify")
+	tailwindCmd := exec.Command("npx", "tailwindcss", "-i", "./internal/app.css", "-o", "./static/index.css", "--minify")
 	tailwindCmd.Stdout = os.Stdout
 	tailwindCmd.Stderr = os.Stderr
 	tailwindCmd.Env = os.Environ()
