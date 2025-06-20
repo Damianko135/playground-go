@@ -1,7 +1,148 @@
 package views
 
 templ About() {
+	@Layout("About - Templ App", aboutContent())
+}
 
-    <h2 class="text-xxl> About section </h2>
+templ aboutContent() {
+	<!-- About Hero -->
+	<div class="text-center mb-12">
+		<div class="inline-block p-4 bg-white rounded-full shadow-lg mb-6">
+			<div class="text-6xl">🚀</div>
+		</div>
+		<h1 class="text-4xl font-bold text-green-800 mb-4">
+			About This App
+		</h1>
+		<p class="text-xl text-green-600 max-w-3xl mx-auto">
+			Learn more about the technologies and concepts behind this beautiful Templ web application.
+		</p>
+	</div>
 
+	<!-- Technology Stack -->
+	<div class="card mb-12">
+		<h2 class="card-header">🛠️ Technology Stack</h2>
+		<div class="grid md:grid-cols-2 gap-8">
+			<div>
+				<h3 class="text-lg font-semibold text-green-800 mb-3">Backend</h3>
+				<ul class="space-y-2 text-green-600">
+					<li class="flex items-center">
+						<span class="badge mr-2">Go</span>
+						Fast, compiled programming language
+					</li>
+					<li class="flex items-center">
+						<span class="badge mr-2">Echo</span>
+						High performance web framework
+					</li>
+					<li class="flex items-center">
+						<span class="badge mr-2">Templ</span>
+						Type-safe HTML templates
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h3 class="text-lg font-semibold text-green-800 mb-3">Frontend</h3>
+				<ul class="space-y-2 text-green-600">
+					<li class="flex items-center">
+						<span class="badge mr-2">Tailwind CSS</span>
+						Utility-first CSS framework
+					</li>
+					<li class="flex items-center">
+						<span class="badge mr-2">HTML5</span>
+						Modern semantic markup
+					</li>
+					<li class="flex items-center">
+						<span class="badge mr-2">JavaScript</span>
+						Interactive functionality
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Features -->
+	<div class="card mb-12">
+		<h2 class="card-header">✨ Key Features</h2>
+		<div class="grid md:grid-cols-2 gap-6">
+			<div class="space-y-4">
+				<div class="flex items-start space-x-3">
+					<div class="text-2xl">🔒</div>
+					<div>
+						<h3 class="font-semibold text-green-800">Type Safety</h3>
+						<p class="text-green-600">Templ provides compile-time type checking for your HTML templates.</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<div class="text-2xl">⚡</div>
+					<div>
+						<h3 class="font-semibold text-green-800">High Performance</h3>
+						<p class="text-green-600">Go's compiled nature ensures fast execution and low memory usage.</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<div class="text-2xl">📱</div>
+					<div>
+						<h3 class="font-semibold text-green-800">Responsive Design</h3>
+						<p class="text-green-600">Tailwind CSS ensures the app looks great on all devices.</p>
+					</div>
+				</div>
+			</div>
+			<div class="space-y-4">
+				<div class="flex items-start space-x-3">
+					<div class="text-2xl">🎨</div>
+					<div>
+						<h3 class="font-semibold text-green-800">Modern UI</h3>
+						<p class="text-green-600">Clean, modern design with smooth animations and transitions.</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<div class="text-2xl">🔧</div>
+					<div>
+						<h3 class="font-semibold text-green-800">Developer Friendly</h3>
+						<p class="text-green-600">Easy to understand code structure and development workflow.</p>
+					</div>
+				</div>
+				<div class="flex items-start space-x-3">
+					<div class="text-2xl">🚀</div>
+					<div>
+						<h3 class="font-semibold text-green-800">Production Ready</h3>
+						<p class="text-green-600">Built with best practices for scalable web applications.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Code Example -->
+	<div class="card mb-12">
+		<h2 class="card-header">💻 Sample Templ Code</h2>
+		<div class="bg-gray-900 text-green-400 p-6 rounded-lg overflow-x-auto">
+			<pre><code>package views
+
+templ HelloWorld(name string) {
+    &lt;div class="card"&gt;
+        &lt;h1&gt;Hello, { name }!&lt;/h1&gt;
+        &lt;p&gt;Welcome to Templ!&lt;/p&gt;
+    &lt;/div&gt;
+}</code></pre>
+		</div>
+		<p class="text-green-600 mt-4">
+			This is how easy it is to create type-safe HTML templates with Templ. The <code class="bg-green-100 px-2 py-1 rounded">name</code> parameter is fully type-checked at compile time!
+		</p>
+	</div>
+
+	<!-- Call to Action -->
+	<div class="text-center">
+		<div class="card bg-gradient-green text-white">
+			<h2 class="text-2xl font-bold mb-4">Ready to Get Started?</h2>
+			<p class="mb-6">Explore the power of Go, Templ, and modern web development!</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a href="/" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+					← Back to Home
+				</a>
+				<a href="https://templ.guide" target="_blank" class="bg-green-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-800 transition-colors">
+					Learn Templ →
+				</a>
+			</div>
+		</div>
+	</div>
 }

@@ -1,7 +1,108 @@
 package views
 
 templ Home() {
+	@Layout("Hello World - Templ App", homeContent())
+}
 
-	<h1>Hello from Templ!</h1>
+templ homeContent() {
+	<!-- Hero Section -->
+	<div class="text-center mb-12">
+		<div class="inline-block p-4 bg-white rounded-full shadow-lg mb-6">
+			<div class="text-6xl">👋</div>
+		</div>
+		<h1 class="text-5xl font-bold text-green-800 mb-4">
+			Hello, World!
+		</h1>
+		<p class="text-xl text-green-600 mb-8 max-w-2xl mx-auto">
+			Welcome to your beautiful Templ web application! This is a modern, responsive hello world app built with Go, Templ, and Tailwind CSS.
+		</p>
+		<div class="flex flex-col sm:flex-row gap-4 justify-center">
+			<button class="btn-primary px-8 py-3 text-lg">
+				Get Started 🚀
+			</button>
+			<a href="/about" class="btn-secondary px-8 py-3 text-lg">
+				Learn More
+			</a>
+		</div>
+	</div>
 
+	<!-- Features Grid -->
+	<div class="grid md:grid-cols-3 gap-8 mb-12">
+		<div class="card text-center">
+			<div class="text-4xl mb-4">⚡</div>
+			<h3 class="card-header">Fast & Efficient</h3>
+			<p class="text-green-600">Built with Go for lightning-fast performance and minimal resource usage.</p>
+		</div>
+		<div class="card text-center">
+			<div class="text-4xl mb-4">🎨</div>
+			<h3 class="card-header">Beautiful Design</h3>
+			<p class="text-green-600">Styled with Tailwind CSS for a modern, responsive user interface.</p>
+		</div>
+		<div class="card text-center">
+			<div class="text-4xl mb-4">🔧</div>
+			<h3 class="card-header">Easy to Use</h3>
+			<p class="text-green-600">Templ makes it simple to build type-safe HTML templates in Go.</p>
+		</div>
+	</div>
+
+	<!-- Interactive Demo Section -->
+	<div class="card mb-12">
+		<h2 class="card-header">Interactive Demo</h2>
+		<div class="space-y-4">
+			<div class="form-group">
+				<label class="block text-green-700 font-semibold mb-2">Your Name:</label>
+				<input type="text" id="nameInput" class="input-field" placeholder="Enter your name..." />
+			</div>
+			<button onclick="greetUser()" class="btn-primary">
+				Say Hello! 👋
+			</button>
+			<div id="greeting" class="alert-success hidden">
+				<strong>Hello there!</strong> Nice to meet you! 🎉
+			</div>
+		</div>
+	</div>
+
+	<!-- Stats Section -->
+	<div class="grid md:grid-cols-4 gap-6 mb-12">
+		<div class="text-center">
+			<div class="text-3xl font-bold text-green-800">100%</div>
+			<div class="text-green-600">Type Safe</div>
+		</div>
+		<div class="text-center">
+			<div class="text-3xl font-bold text-green-800">⚡</div>
+			<div class="text-green-600">Lightning Fast</div>
+		</div>
+		<div class="text-center">
+			<div class="text-3xl font-bold text-green-800">🎨</div>
+			<div class="text-green-600">Beautiful UI</div>
+		</div>
+		<div class="text-center">
+			<div class="text-3xl font-bold text-green-800">🚀</div>
+			<div class="text-green-600">Production Ready</div>
+		</div>
+	</div>
+
+	<!-- JavaScript for interactivity -->
+	<script>
+		function greetUser() {
+			const nameInput = document.getElementById('nameInput');
+			const greeting = document.getElementById('greeting');
+			const name = nameInput.value.trim();
+			
+			if (name) {
+				greeting.innerHTML = `<strong>Hello, ${name}!</strong> Welcome to our Templ app! 🎉`;
+			} else {
+				greeting.innerHTML = `<strong>Hello there!</strong> Nice to meet you! 🎉`;
+			}
+			
+			greeting.classList.remove('hidden');
+		}
+
+		// Add enter key support
+		document.getElementById('nameInput').addEventListener('keypress', function(e) {
+			if (e.key === 'Enter') {
+				greetUser();
+			}
+		});
+	</script>
 }
