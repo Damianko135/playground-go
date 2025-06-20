@@ -72,7 +72,15 @@ func main() {
 	apiGroup.Use(middleware.APIKeyAuth(cfg.API.Key))
 
 	// Static files
-	e.Static("/static", "../../static")
+	fmt.Println("🔧 Setting up static file serving...")
+
+	// Custom HTMX route (with correct MIME type)
+	e.GET("/static/htmx.min.js", func(c echo.Context) error {
+		c.Response().Header().Set("Content-Type", "application/javascript")
+		return c.File("static/htmx.min.js")
+	})
+
+	e.Static("/static", "static")
 
 	// Web routes
 	e.GET("/", utils.Temple(views.Home()))
@@ -92,7 +100,7 @@ func main() {
 		e.GET("/metrics", handlers.GetMetrics)
 	}
 
-	// API endpoints
+	// API endpoints (JSON)
 	apiGroup.GET("/weather", handlers.GetWeather)
 	apiGroup.GET("/quote", handlers.GetQuote)
 	apiGroup.GET("/stats", handlers.GetSystemStats)
@@ -100,6 +108,15 @@ func main() {
 	apiGroup.GET("/joke", handlers.GetJoke)
 	apiGroup.GET("/random", handlers.GetRandomNumber)
 	apiGroup.GET("/timezones", handlers.GetTimeZones)
+
+	// HTMX endpoints (HTML fragments) - no API key required for better UX
+	e.GET("/htmx/weather", handlers.GetWeatherHTML)
+	e.GET("/htmx/quote", handlers.GetQuoteHTML)
+	e.GET("/htmx/stats", handlers.GetSystemStatsHTML)
+	e.GET("/htmx/palette", handlers.GetColorPaletteHTML)
+	e.GET("/htmx/joke", handlers.GetJokeHTML)
+	e.GET("/htmx/timezones", handlers.GetWorldClockHTML)
+	e.GET("/htmx/random", handlers.GetRandomNumberHTML)
 
 	// Configure server
 	server := &http.Server{

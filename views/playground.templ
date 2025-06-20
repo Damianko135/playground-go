@@ -37,14 +37,15 @@ templ playgroundContent() {
 						</div>
 						<h3 class="text-xl font-semibold text-gray-900">Weather</h3>
 					</div>
-					<div id="weather-widget" class="space-y-2">
+					<div id="weather-widget" class="space-y-2" hx-get="/htmx/weather" hx-trigger="load">
 						<div class="animate-pulse">
 							<div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
 							<div class="h-4 bg-gray-200 rounded w-1/2"></div>
 						</div>
 					</div>
-					<button onclick="loadWeather()" class="btn-primary mt-4 w-full">
-						Refresh Weather
+					<button hx-get="/htmx/weather" hx-target="#weather-widget" hx-indicator="#weather-loading" class="btn-primary mt-4 w-full">
+						<span id="weather-loading" class="htmx-indicator">Loading...</span>
+						<span class="htmx-indicator-hide">Refresh Weather</span>
 					</button>
 				</div>
 
@@ -58,14 +59,15 @@ templ playgroundContent() {
 						</div>
 						<h3 class="text-xl font-semibold text-gray-900">Daily Quote</h3>
 					</div>
-					<div id="quote-widget" class="space-y-2">
+					<div id="quote-widget" class="space-y-2" hx-get="/htmx/quote" hx-trigger="load">
 						<div class="animate-pulse">
 							<div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
 							<div class="h-4 bg-gray-200 rounded w-2/3"></div>
 						</div>
 					</div>
-					<button onclick="loadQuote()" class="btn-primary mt-4 w-full">
-						New Quote
+					<button hx-get="/htmx/quote" hx-target="#quote-widget" hx-indicator="#quote-loading" class="btn-primary mt-4 w-full">
+						<span id="quote-loading" class="htmx-indicator">Loading...</span>
+						<span class="htmx-indicator-hide">New Quote</span>
 					</button>
 				</div>
 
@@ -79,7 +81,7 @@ templ playgroundContent() {
 						</div>
 						<h3 class="text-xl font-semibold text-gray-900">Color Palette</h3>
 					</div>
-					<div id="palette-widget" class="space-y-2">
+					<div id="palette-widget" class="space-y-2" hx-get="/htmx/palette" hx-trigger="load">
 						<div class="animate-pulse">
 							<div class="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
 							<div class="flex space-x-1">
@@ -91,8 +93,9 @@ templ playgroundContent() {
 							</div>
 						</div>
 					</div>
-					<button onclick="loadPalette()" class="btn-primary mt-4 w-full">
-						Generate Palette
+					<button hx-get="/htmx/palette" hx-target="#palette-widget" hx-indicator="#palette-loading" class="btn-primary mt-4 w-full">
+						<span id="palette-loading" class="htmx-indicator">Loading...</span>
+						<span class="htmx-indicator-hide">Generate Palette</span>
 					</button>
 				</div>
 
@@ -108,15 +111,20 @@ templ playgroundContent() {
 					</div>
 					<div class="space-y-3">
 						<div class="flex space-x-2">
-							<input type="number" id="min-num" placeholder="Min" value="1" class="input-field flex-1">
-							<input type="number" id="max-num" placeholder="Max" value="100" class="input-field flex-1">
+							<input type="number" id="min-num" name="min" placeholder="Min" value="1" class="input-field flex-1">
+							<input type="number" id="max-num" name="max" placeholder="Max" value="100" class="input-field flex-1">
 						</div>
 						<div id="random-result" class="text-center">
 							<span class="text-3xl font-bold text-green-600">?</span>
 						</div>
 					</div>
-					<button onclick="generateRandomNumber()" class="btn-primary mt-4 w-full">
-						Generate Number
+					<button hx-get="/htmx/random" 
+							hx-target="#random-result" 
+							hx-include="#min-num,#max-num"
+							hx-indicator="#random-loading" 
+							class="btn-primary mt-4 w-full">
+						<span id="random-loading" class="htmx-indicator">Loading...</span>
+						<span class="htmx-indicator-hide">Generate Number</span>
 					</button>
 				</div>
 
@@ -130,14 +138,15 @@ templ playgroundContent() {
 						</div>
 						<h3 class="text-xl font-semibold text-gray-900">Dev Humor</h3>
 					</div>
-					<div id="joke-widget" class="space-y-2 min-h-[100px]">
+					<div id="joke-widget" class="space-y-2 min-h-[100px]" hx-get="/htmx/joke" hx-trigger="load">
 						<div class="animate-pulse">
 							<div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
 							<div class="h-4 bg-gray-200 rounded w-3/4"></div>
 						</div>
 					</div>
-					<button onclick="loadJoke()" class="btn-primary mt-4 w-full">
-						Tell Me a Joke
+					<button hx-get="/htmx/joke" hx-target="#joke-widget" hx-indicator="#joke-loading" class="btn-primary mt-4 w-full">
+						<span id="joke-loading" class="htmx-indicator">Loading...</span>
+						<span class="htmx-indicator-hide">Tell Me a Joke</span>
 					</button>
 				</div>
 
@@ -151,15 +160,16 @@ templ playgroundContent() {
 						</div>
 						<h3 class="text-xl font-semibold text-gray-900">System Stats</h3>
 					</div>
-					<div id="stats-widget" class="space-y-2">
+					<div id="stats-widget" class="space-y-2" hx-get="/htmx/stats" hx-trigger="load, every 30s">
 						<div class="animate-pulse">
 							<div class="h-3 bg-gray-200 rounded w-full mb-2"></div>
 							<div class="h-3 bg-gray-200 rounded w-4/5 mb-2"></div>
 							<div class="h-3 bg-gray-200 rounded w-3/5"></div>
 						</div>
 					</div>
-					<button onclick="loadStats()" class="btn-primary mt-4 w-full">
-						Refresh Stats
+					<button hx-get="/htmx/stats" hx-target="#stats-widget" hx-indicator="#stats-loading" class="btn-primary mt-4 w-full">
+						<span id="stats-loading" class="htmx-indicator">Loading...</span>
+						<span class="htmx-indicator-hide">Refresh Stats</span>
 					</button>
 				</div>
 
@@ -172,11 +182,12 @@ templ playgroundContent() {
 		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="card text-center">
 				<h2 class="text-3xl font-bold text-gray-900 mb-8">World Clock</h2>
-				<div id="world-clock" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-					<!-- Clock widgets will be populated by JavaScript -->
+				<div id="world-clock" class="grid grid-cols-2 md:grid-cols-4 gap-4" hx-get="/htmx/timezones" hx-trigger="load, every 30s">
+					<!-- Clock widgets will be populated by HTMX -->
 				</div>
-				<button onclick="loadWorldClock()" class="btn-primary mt-6">
-					Update Clocks
+				<button hx-get="/htmx/timezones" hx-target="#world-clock" hx-indicator="#clock-loading" class="btn-primary mt-6">
+					<span id="clock-loading" class="htmx-indicator">Loading...</span>
+					<span class="htmx-indicator-hide">Update Clocks</span>
 				</button>
 			</div>
 		</div>
@@ -211,152 +222,7 @@ templ playgroundContent() {
 
 	<!-- JavaScript for Interactive Features -->
 	<script>
-		// Load weather data
-		async function loadWeather() {
-			try {
-				const response = await fetch('/api/weather');
-				const data = await response.json();
-				document.getElementById('weather-widget').innerHTML = `
-					<div class="space-y-2">
-						<div class="flex justify-between items-center">
-							<span class="font-medium">${data.location}</span>
-							<span class="text-2xl font-bold text-blue-600">${data.temperature}°C</span>
-						</div>
-						<p class="text-gray-600">${data.description}</p>
-						<div class="flex justify-between text-sm text-gray-500">
-							<span>Humidity: ${data.humidity}%</span>
-							<span>Wind: ${data.wind_speed} km/h</span>
-						</div>
-						<p class="text-xs text-gray-400">Updated: ${data.timestamp}</p>
-					</div>
-				`;
-			} catch (error) {
-				document.getElementById('weather-widget').innerHTML = '<p class="text-red-500">Failed to load weather data</p>';
-			}
-		}
-
-		// Load quote
-		async function loadQuote() {
-			try {
-				const response = await fetch('/api/quote');
-				const data = await response.json();
-				document.getElementById('quote-widget').innerHTML = `
-					<div class="space-y-3">
-						<blockquote class="text-gray-700 italic">"${data.text}"</blockquote>
-						<cite class="text-sm text-gray-500 block text-right">— ${data.author}</cite>
-					</div>
-				`;
-			} catch (error) {
-				document.getElementById('quote-widget').innerHTML = '<p class="text-red-500">Failed to load quote</p>';
-			}
-		}
-
-		// Load color palette
-		async function loadPalette() {
-			try {
-				const response = await fetch('/api/palette');
-				const data = await response.json();
-				const colorsHtml = data.colors.map(color => 
-					`<div class="w-8 h-8 rounded cursor-pointer hover:scale-110 transition-transform" 
-					     style="background-color: ${color}" 
-					     title="${color}" 
-					     onclick="copyToClipboard('${color}')"></div>`
-				).join('');
-				
-				document.getElementById('palette-widget').innerHTML = `
-					<div class="space-y-3">
-						<h4 class="font-medium text-gray-900">${data.name}</h4>
-						<div class="flex space-x-1">${colorsHtml}</div>
-						<p class="text-xs text-gray-500">Theme: ${data.theme} • Click colors to copy</p>
-					</div>
-				`;
-			} catch (error) {
-				document.getElementById('palette-widget').innerHTML = '<p class="text-red-500">Failed to load palette</p>';
-			}
-		}
-
-		// Generate random number
-		async function generateRandomNumber() {
-			const min = document.getElementById('min-num').value || 1;
-			const max = document.getElementById('max-num').value || 100;
-			
-			try {
-				const response = await fetch(`/api/random?min=${min}&max=${max}`);
-				const data = await response.json();
-				document.getElementById('random-result').innerHTML = `
-					<span class="text-4xl font-bold text-green-600 animate-pulse">${data.number}</span>
-				`;
-			} catch (error) {
-				document.getElementById('random-result').innerHTML = '<span class="text-red-500">Error</span>';
-			}
-		}
-
-		// Load joke
-		async function loadJoke() {
-			try {
-				const response = await fetch('/api/joke');
-				const data = await response.json();
-				document.getElementById('joke-widget').innerHTML = `
-					<div class="space-y-3">
-						<p class="text-gray-700 font-medium">${data.setup}</p>
-						<p class="text-green-600 font-semibold">${data.punchline}</p>
-						<span class="badge">${data.type}</span>
-					</div>
-				`;
-			} catch (error) {
-				document.getElementById('joke-widget').innerHTML = '<p class="text-red-500">Failed to load joke</p>';
-			}
-		}
-
-		// Load system stats
-		async function loadStats() {
-			try {
-				const response = await fetch('/api/stats');
-				const data = await response.json();
-				document.getElementById('stats-widget').innerHTML = `
-					<div class="space-y-2 text-sm">
-						<div class="flex justify-between">
-							<span>CPU Usage:</span>
-							<span class="font-medium">${data.cpu_usage}</span>
-						</div>
-						<div class="flex justify-between">
-							<span>Memory:</span>
-							<span class="font-medium">${data.memory_usage}</span>
-						</div>
-						<div class="flex justify-between">
-							<span>Disk:</span>
-							<span class="font-medium">${data.disk_usage}</span>
-						</div>
-						<div class="flex justify-between">
-							<span>Uptime:</span>
-							<span class="font-medium text-xs">${data.uptime}</span>
-						</div>
-					</div>
-				`;
-			} catch (error) {
-				document.getElementById('stats-widget').innerHTML = '<p class="text-red-500">Failed to load stats</p>';
-			}
-		}
-
-		// Load world clock
-		async function loadWorldClock() {
-			try {
-				const response = await fetch('/api/timezones');
-				const data = await response.json();
-				const clocksHtml = Object.entries(data.timezones).map(([city, time]) => `
-					<div class="text-center p-3 bg-white rounded-lg border border-green-200">
-						<div class="text-lg font-bold text-green-600">${time}</div>
-						<div class="text-sm text-gray-600">${city}</div>
-					</div>
-				`).join('');
-				
-				document.getElementById('world-clock').innerHTML = clocksHtml;
-			} catch (error) {
-				document.getElementById('world-clock').innerHTML = '<p class="text-red-500">Failed to load clocks</p>';
-			}
-		}
-
-		// Copy to clipboard
+		// Copy to clipboard function (still needed for color palette)
 		function copyToClipboard(text) {
 			navigator.clipboard.writeText(text).then(() => {
 				// Show a temporary notification
@@ -389,22 +255,6 @@ templ playgroundContent() {
 				});
 			}
 		}
-
-		// Auto-load initial data
-		document.addEventListener('DOMContentLoaded', function() {
-			loadWeather();
-			loadQuote();
-			loadPalette();
-			loadJoke();
-			loadStats();
-			loadWorldClock();
-			
-			// Auto-refresh some widgets every 30 seconds
-			setInterval(() => {
-				loadStats();
-				loadWorldClock();
-			}, 30000);
-		});
 	</script>
 
 	<style>

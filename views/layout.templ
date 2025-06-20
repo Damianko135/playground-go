@@ -11,10 +11,37 @@ templ Layout(title string, content templ.Component) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- HTMX -->
+    <script src="/static/htmx.min.js"></script>
 
     <title>{ title } | Playground Go</title>
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* HTMX Indicator Styles */
+        .htmx-indicator {
+            display: none;
+        }
+        
+        .htmx-request .htmx-indicator {
+            display: inline;
+        }
+        
+        .htmx-request .htmx-indicator-hide {
+            display: none;
+        }
+        
+        /* Badge styles for joke types */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: #f3f4f6;
+            color: #374151;
+            border-radius: 9999px;
+        }
     </style>
 </head>
 <body class="h-full bg-gradient-to-br from-green-50 to-emerald-100 text-gray-900">

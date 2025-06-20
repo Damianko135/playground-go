@@ -16,7 +16,17 @@ import (
 // Clean removes all build artifacts and the bin directory
 func Clean() error {
 	fmt.Println("🧹 Cleaning...")
-	return os.RemoveAll("bin")
+	if os.RemoveAll("bin") != nil {
+		return fmt.Errorf("failed to remove bin directory")
+	}
+	if err := os.RemoveAll("cmd/server/tmp"); err != nil {
+		return fmt.Errorf("failed to remove tmp directory: %w", err)
+	}
+	if err := os.RemoveAll("node_modules"); err != nil {
+		return fmt.Errorf("failed to remove views directory: %w", err)
+	}
+	return nil
+
 }
 
 // Build compiles the application binary after cleaning
@@ -58,4 +68,16 @@ func Run() error {
 	}
 	fmt.Println("🚀 Running...")
 	return runCmd("./" + bin)
+}
+
+
+// Generate templ files for the application
+func Gen() error {	
+	fmt.Println("🔧 Generating templates...")
+	// templ generate:
+	if err := runCmd("templ", "generate"); err != nil {
+		return fmt.Errorf("failed to generate templates: %w", err)
+	}
+
+	return nil
 }
