@@ -23,7 +23,8 @@ func main() {
 	}
 	e.Use(middleware.Recover())
 
-	e.Static("/", "./static")
+	e.Static("/static", "./static")
+	e.Static("/", "./public")
 
 	// Serve homepage using your render helper
 	e.GET("/", utils.Temple(views.Home()))

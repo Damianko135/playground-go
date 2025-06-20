@@ -1,269 +1,322 @@
 package views
 
 templ About() {
-	@Layout("About - Templ App", aboutContent())
+	@Layout("About", aboutContent())
 }
 
 templ aboutContent() {
-	<!-- Enhanced About Hero with Parallax Effect -->
-	<div class="relative text-center mb-16 py-16">
-		<!-- Animated Background -->
-		<div class="absolute inset-0 -z-10 overflow-hidden">
-			<div class="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-green-200 to-emerald-300 rounded-full opacity-20 animate-pulse"></div>
-			<div class="absolute top-1/3 right-1/4 w-48 h-48 bg-gradient-to-bl from-emerald-200 to-green-300 rounded-full opacity-25 animate-bounce"></div>
-			<div class="absolute bottom-1/4 left-1/3 w-32 h-32 bg-gradient-to-tr from-green-300 to-emerald-400 rounded-full opacity-30 animate-pulse"></div>
-		</div>
-		
-		<div class="inline-block p-8 bg-gradient-to-br from-white via-green-50 to-emerald-100 rounded-full shadow-2xl mb-8 transform hover:scale-110 transition-all duration-500">
-			<div class="text-8xl animate-bounce">🚀</div>
-		</div>
-		<h1 class="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-green-600 via-emerald-600 to-green-800 bg-clip-text text-transparent mb-6">
-			About This App
-		</h1>
-		<p class="text-2xl text-green-700 max-w-4xl mx-auto leading-relaxed font-light">
-			Discover the <span class="font-semibold text-emerald-600">cutting-edge technologies</span> and 
-			<span class="font-semibold text-green-600">innovative concepts</span> that power this 
-			beautiful, modern web application.
-		</p>
-	</div>
-	<!-- Enhanced Technology Stack -->
-	<div class="card mb-16 bg-gradient-to-br from-white to-green-50 border-2 border-green-200 shadow-2xl">
-		<h2 class="text-3xl font-bold text-green-800 mb-8 flex items-center">
-			<span class="text-4xl mr-4">🛠️</span>
-			Technology Stack
-		</h2>
-		<div class="grid md:grid-cols-2 gap-12">
-			<div class="space-y-6">
-				<div class="flex items-center mb-4">
-					<div class="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mr-3"></div>
-					<h3 class="text-2xl font-bold text-green-800">Backend Powerhouse</h3>
-				</div>
-				<div class="space-y-4">
-					<div class="group p-4 bg-white rounded-2xl border border-green-200 hover:border-green-400 hover:shadow-lg transition-all duration-300">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<span class="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-xl font-bold mr-4 group-hover:scale-105 transition-transform">Go</span>
-								<span class="text-green-700 font-medium">Blazing fast, compiled language</span>
-							</div>
-							<div class="w-8 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
-						</div>
-					</div>
-					<div class="group p-4 bg-white rounded-2xl border border-green-200 hover:border-green-400 hover:shadow-lg transition-all duration-300">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<span class="px-4 py-2 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 rounded-xl font-bold mr-4 group-hover:scale-105 transition-transform">Echo</span>
-								<span class="text-green-700 font-medium">High-performance web framework</span>
-							</div>
-							<div class="w-8 h-1 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full"></div>
-						</div>
-					</div>
-					<div class="group p-4 bg-white rounded-2xl border border-green-200 hover:border-green-400 hover:shadow-lg transition-all duration-300">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<span class="px-4 py-2 bg-gradient-to-r from-green-100 to-emerald-200 text-green-800 rounded-xl font-bold mr-4 group-hover:scale-105 transition-transform">Templ</span>
-								<span class="text-green-700 font-medium">Type-safe HTML templates</span>
-							</div>
-							<div class="w-8 h-1 bg-gradient-to-r from-green-400 to-emerald-600 rounded-full"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="space-y-6">
-				<div class="flex items-center mb-4">
-					<div class="w-4 h-4 bg-gradient-to-r from-emerald-500 to-green-500 rounded-full mr-3"></div>
-					<h3 class="text-2xl font-bold text-emerald-800">Frontend Excellence</h3>
-				</div>
-				<div class="space-y-4">
-					<div class="group p-4 bg-white rounded-2xl border border-emerald-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-300">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<span class="px-4 py-2 bg-gradient-to-r from-cyan-100 to-cyan-200 text-cyan-800 rounded-xl font-bold mr-4 group-hover:scale-105 transition-transform">Tailwind</span>
-								<span class="text-emerald-700 font-medium">Utility-first CSS framework</span>
-							</div>
-							<div class="w-8 h-1 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full"></div>
-						</div>
-					</div>
-					<div class="group p-4 bg-white rounded-2xl border border-emerald-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-300">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<span class="px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-800 rounded-xl font-bold mr-4 group-hover:scale-105 transition-transform">HTML5</span>
-								<span class="text-emerald-700 font-medium">Modern semantic markup</span>
-							</div>
-							<div class="w-8 h-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full"></div>
-						</div>
-					</div>
-					<div class="group p-4 bg-white rounded-2xl border border-emerald-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-300">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<span class="px-4 py-2 bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800 rounded-xl font-bold mr-4 group-hover:scale-105 transition-transform">JavaScript</span>
-								<span class="text-emerald-700 font-medium">Interactive functionality</span>
-							</div>
-							<div class="w-8 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
-						</div>
-					</div>
-				</div>
+	<!-- Hero Section -->
+	<section class="py-16 sm:py-24">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+			<div class="animate-fade-in-up">
+				<h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+					About 
+					<span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+						Playground Go
+					</span>
+				</h1>
+				<p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+					A modern web application showcasing the power of Go, Templ, and Tailwind CSS working together to create beautiful, performant web experiences.
+				</p>
 			</div>
 		</div>
-	</div>
-	<!-- Enhanced Features Section -->
-	<div class="card mb-16 bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 shadow-2xl">
-		<h2 class="text-3xl font-bold text-emerald-800 mb-8 flex items-center">
-			<span class="text-4xl mr-4">✨</span>
-			Key Features
-		</h2>
-		<div class="grid md:grid-cols-2 gap-8">
-			<div class="space-y-6">
-				<div class="group flex items-start space-x-4 p-6 bg-white rounded-2xl border border-green-200 hover:border-green-400 hover:shadow-xl transition-all duration-300">
-					<div class="text-4xl group-hover:animate-pulse">🔒</div>
-					<div>
-						<h3 class="text-xl font-bold text-green-800 mb-2 group-hover:text-emerald-700">Type Safety</h3>
-						<p class="text-green-600 leading-relaxed group-hover:text-green-700">
-							Templ provides <span class="font-semibold">compile-time type checking</span> for your HTML templates, 
-							eliminating runtime errors and ensuring robust code.
-						</p>
-					</div>
-				</div>
-				<div class="group flex items-start space-x-4 p-6 bg-white rounded-2xl border border-green-200 hover:border-green-400 hover:shadow-xl transition-all duration-300">
-					<div class="text-4xl group-hover:animate-bounce">⚡</div>
-					<div>
-						<h3 class="text-xl font-bold text-green-800 mb-2 group-hover:text-emerald-700">Lightning Performance</h3>
-						<p class="text-green-600 leading-relaxed group-hover:text-green-700">
-							Go's <span class="font-semibold">compiled nature</span> ensures blazing-fast execution, 
-							minimal memory usage, and exceptional scalability.
-						</p>
-					</div>
-				</div>
-				<div class="group flex items-start space-x-4 p-6 bg-white rounded-2xl border border-green-200 hover:border-green-400 hover:shadow-xl transition-all duration-300">
-					<div class="text-4xl group-hover:animate-pulse">📱</div>
-					<div>
-						<h3 class="text-xl font-bold text-green-800 mb-2 group-hover:text-emerald-700">Responsive Design</h3>
-						<p class="text-green-600 leading-relaxed group-hover:text-green-700">
-							<span class="font-semibold">Tailwind CSS</span> ensures your app looks stunning 
-							on all devices, from mobile phones to desktop monitors.
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="space-y-6">
-				<div class="group flex items-start space-x-4 p-6 bg-white rounded-2xl border border-emerald-200 hover:border-emerald-400 hover:shadow-xl transition-all duration-300">
-					<div class="text-4xl group-hover:animate-spin">🎨</div>
-					<div>
-						<h3 class="text-xl font-bold text-emerald-800 mb-2 group-hover:text-green-700">Modern UI</h3>
-						<p class="text-emerald-600 leading-relaxed group-hover:text-emerald-700">
-							Clean, modern design with <span class="font-semibold">smooth animations</span>, 
-							beautiful transitions, and an intuitive user experience.
-						</p>
-					</div>
-				</div>
-				<div class="group flex items-start space-x-4 p-6 bg-white rounded-2xl border border-emerald-200 hover:border-emerald-400 hover:shadow-xl transition-all duration-300">
-					<div class="text-4xl group-hover:animate-bounce">🔧</div>
-					<div>
-						<h3 class="text-xl font-bold text-emerald-800 mb-2 group-hover:text-green-700">Developer Friendly</h3>
-						<p class="text-emerald-600 leading-relaxed group-hover:text-emerald-700">
-							<span class="font-semibold">Crystal-clear code structure</span> and streamlined 
-							development workflow make building and maintaining apps a joy.
-						</p>
-					</div>
-				</div>
-				<div class="group flex items-start space-x-4 p-6 bg-white rounded-2xl border border-emerald-200 hover:border-emerald-400 hover:shadow-xl transition-all duration-300">
-					<div class="text-4xl group-hover:animate-pulse">🚀</div>
-					<div>
-						<h3 class="text-xl font-bold text-emerald-800 mb-2 group-hover:text-green-700">Production Ready</h3>
-						<p class="text-emerald-600 leading-relaxed group-hover:text-emerald-700">
-							Built with <span class="font-semibold">industry best practices</span> for 
-							scalable, maintainable, and enterprise-grade web applications.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Enhanced Code Example -->
-	<div class="card mb-16 bg-gradient-to-br from-gray-900 to-gray-800 border-2 border-gray-700 shadow-2xl">
-		<h2 class="text-3xl font-bold text-white mb-8 flex items-center">
-			<span class="text-4xl mr-4">💻</span>
-			Sample Templ Code
-		</h2>
-		<div class="relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-700">
-			<!-- Code header -->
-			<div class="flex items-center justify-between px-6 py-3 bg-gray-800 border-b border-gray-700">
-				<div class="flex space-x-2">
-					<div class="w-3 h-3 bg-red-400 rounded-full"></div>
-					<div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
-					<div class="w-3 h-3 bg-green-400 rounded-full"></div>
-				</div>
-				<span class="text-gray-400 text-sm font-mono">hello.templ</span>
-			</div>
-			<!-- Code content -->
-			<div class="p-6">
-				<pre class="text-green-400 font-mono text-lg leading-relaxed"><code><span class="text-blue-400">package</span> <span class="text-yellow-300">views</span>
+	</section>
 
-<span class="text-purple-400">templ</span> <span class="text-blue-300">HelloWorld</span>(<span class="text-orange-300">name</span> <span class="text-green-300">string</span>) <span class="text-gray-500">{</span>
-    <span class="text-gray-500">&lt;</span><span class="text-red-400">div</span> <span class="text-green-300">class</span>=<span class="text-yellow-200">"card"</span><span class="text-gray-500">&gt;</span>
-        <span class="text-gray-500">&lt;</span><span class="text-red-400">h1</span> <span class="text-green-300">class</span>=<span class="text-yellow-200">"text-3xl font-bold"</span><span class="text-gray-500">&gt;</span>
-            Hello, <span class="text-gray-500">{</span><span class="text-orange-300">name</span><span class="text-gray-500">}</span>!
-        <span class="text-gray-500">&lt;/</span><span class="text-red-400">h1</span><span class="text-gray-500">&gt;</span>
-        <span class="text-gray-500">&lt;</span><span class="text-red-400">p</span> <span class="text-green-300">class</span>=<span class="text-yellow-200">"text-green-600"</span><span class="text-gray-500">&gt;</span>
-            Welcome to our amazing Templ app!
-        <span class="text-gray-500">&lt;/</span><span class="text-red-400">p</span><span class="text-gray-500">&gt;</span>
-    <span class="text-gray-500">&lt;/</span><span class="text-red-400">div</span><span class="text-gray-500">&gt;</span>
-<span class="text-gray-500">}</span></code></pre>
-			</div>
-		</div>
-		<div class="mt-6 p-6 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl border border-green-200">
-			<p class="text-green-800 text-lg leading-relaxed">
-				<span class="text-2xl mr-2">✨</span>
-				This demonstrates how <span class="font-bold text-emerald-700">incredibly easy</span> it is to create 
-				type-safe HTML templates with Templ! The <code class="bg-white px-3 py-1 rounded-lg text-green-700 font-mono">name</code> 
-				parameter is <span class="font-bold text-green-700">fully type-checked at compile time</span>, 
-				giving you confidence and eliminating runtime errors!
-			</p>
-		</div>
-	</div>
-	<!-- Enhanced Call to Action -->
-	<div class="text-center">
-		<div class="relative card bg-gradient-to-br from-green-500 via-emerald-500 to-green-600 text-white shadow-2xl border-0 overflow-hidden">
-			<!-- Animated background pattern -->
-			<div class="absolute inset-0 opacity-20">
-				<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white via-transparent to-transparent"></div>
-				<div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full opacity-10 animate-pulse"></div>
-				<div class="absolute bottom-10 right-10 w-24 h-24 bg-white rounded-full opacity-15 animate-bounce"></div>
+	<!-- Technology Stack -->
+	<section class="py-16 bg-white/50 backdrop-blur-sm">
+		<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+					Technology Stack
+				</h2>
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+					Built with cutting-edge technologies for optimal performance and developer experience.
+				</p>
 			</div>
 			
-			<div class="relative z-10">
-				<h2 class="text-4xl md:text-5xl font-extrabold mb-6 flex items-center justify-center">
-					<span class="text-5xl mr-4 animate-bounce">🌟</span>
-					Ready to Get Started?
-				</h2>
-				<p class="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
-					Dive into the exciting world of <span class="font-bold">Go</span>, 
-					<span class="font-bold">Templ</span>, and modern web development! 
-					Build lightning-fast, type-safe web applications today.
-				</p>
-				<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-					<a href="/" class="group relative px-10 py-4 bg-white text-green-600 text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-						<span class="relative z-10 flex items-center">
-							<span class="text-2xl mr-2 group-hover:animate-bounce">←</span>
-							Back to Home
-						</span>
-						<div class="absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-					</a>
-					<a href="https://templ.guide" target="_blank" class="group relative px-10 py-4 bg-green-700 text-white text-xl font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-						<span class="relative z-10 flex items-center">
-							Learn Templ
-							<span class="text-2xl ml-2 group-hover:animate-bounce">→</span>
-						</span>
-						<div class="absolute inset-0 bg-green-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-					</a>
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<!-- Left Column - Technologies -->
+				<div class="space-y-8">
+					<!-- Go -->
+					<div class="card">
+						<div class="flex items-start space-x-4">
+							<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+								<svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+									<path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.082l-.199.303c-.023.047-.081.07-.128.07H1.811zM.047 11.306c-.047 0-.058-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.021c.047 0 .07.035.058.081l-.093.328c-.012.047-.058.07-.105.070H.047zM2.828 12.394c-.047 0-.058-.024-.035-.059l.163-.292c.023-.047.070-.070.117-.070h2.337c.047 0 .070.035.070.082l-.023.281c0 .047-.035.070-.082.070H2.828z"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl font-semibold text-gray-900 mb-2">Go Language</h3>
+								<p class="text-gray-600 mb-3">
+									Fast, statically typed, compiled language designed for building reliable and efficient software at scale.
+								</p>
+								<div class="flex flex-wrap gap-2">
+									<span class="badge">High Performance</span>
+									<span class="badge">Concurrency</span>
+									<span class="badge">Type Safety</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Templ -->
+					<div class="card">
+						<div class="flex items-start space-x-4">
+							<div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+								<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl font-semibold text-gray-900 mb-2">Templ</h3>
+								<p class="text-gray-600 mb-3">
+									A language for writing HTML user interfaces in Go. Compile-time safe, fast, and provides excellent developer experience.
+								</p>
+								<div class="flex flex-wrap gap-2">
+									<span class="badge">Type Safe</span>
+									<span class="badge">Fast Rendering</span>
+									<span class="badge">Go Integration</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Tailwind CSS -->
+					<div class="card">
+						<div class="flex items-start space-x-4">
+							<div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center flex-shrink-0">
+								<svg class="w-6 h-6 text-cyan-600" fill="currentColor" viewBox="0 0 24 24">
+									<path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C7.666,17.818,9.027,19.2,12.001,19.2c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-xl font-semibold text-gray-900 mb-2">Tailwind CSS</h3>
+								<p class="text-gray-600 mb-3">
+									Utility-first CSS framework for rapidly building custom user interfaces with consistent design systems.
+								</p>
+								<div class="flex flex-wrap gap-2">
+									<span class="badge">Utility First</span>
+									<span class="badge">Responsive</span>
+									<span class="badge">Customizable</span>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				
-				<!-- Decorative elements -->
-				<div class="mt-8 flex justify-center space-x-4 opacity-60">
-					<div class="text-3xl animate-pulse">⚡</div>
-					<div class="text-3xl animate-bounce">🚀</div>
-					<div class="text-3xl animate-pulse">✨</div>
+
+				<!-- Right Column - Architecture Diagram -->
+				<div class="card bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+					<h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">Architecture Overview</h3>
+					<div class="space-y-4">
+						<!-- Browser Layer -->
+						<div class="bg-white rounded-lg p-4 border border-green-200">
+							<div class="flex items-center space-x-3">
+								<div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+									<svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+									</svg>
+								</div>
+								<span class="font-medium text-gray-900">Browser (HTML + CSS + JS)</span>
+							</div>
+						</div>
+						
+						<!-- Arrow Down -->
+						<div class="flex justify-center">
+							<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+							</svg>
+						</div>
+
+						<!-- Echo Server Layer -->
+						<div class="bg-white rounded-lg p-4 border border-green-200">
+							<div class="flex items-center space-x-3">
+								<div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+									<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4l4 4"></path>
+									</svg>
+								</div>
+								<span class="font-medium text-gray-900">Echo HTTP Server</span>
+							</div>
+						</div>
+
+						<!-- Arrow Down -->
+						<div class="flex justify-center">
+							<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+							</svg>
+						</div>
+
+						<!-- Templ Layer -->
+						<div class="bg-white rounded-lg p-4 border border-green-200">
+							<div class="flex items-center space-x-3">
+								<div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+									<svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+									</svg>
+								</div>
+								<span class="font-medium text-gray-900">Templ Templates</span>
+							</div>
+						</div>
+
+						<!-- Arrow Down -->
+						<div class="flex justify-center">
+							<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+							</svg>
+						</div>
+
+						<!-- Go Application Layer -->
+						<div class="bg-white rounded-lg p-4 border border-green-200">
+							<div class="flex items-center space-x-3">
+								<div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+									<svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.082l-.199.303c-.023.047-.081.07-.128.07H1.811z"/>
+									</svg>
+								</div>
+								<span class="font-medium text-gray-900">Go Application Logic</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
+
+	<!-- Features Section -->
+	<section class="py-16">
+		<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+					Key Features
+				</h2>
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+					Everything you need for modern web development in one cohesive package.
+				</p>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<!-- Performance -->
+				<div class="card text-center group hover:scale-105 transition-all duration-300">
+					<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
+						<svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Lightning Fast</h3>
+					<p class="text-gray-600">
+						Compiled Go backend with optimized Templ rendering delivers exceptional performance and low latency.
+					</p>
+				</div>
+
+				<!-- Type Safety -->
+				<div class="card text-center group hover:scale-105 transition-all duration-300">
+					<div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
+						<svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Type Safe</h3>
+					<p class="text-gray-600">
+						Full type safety from backend to frontend with Go's strong typing and Templ's compile-time checks.
+					</p>
+				</div>
+
+				<!-- Developer Experience -->
+				<div class="card text-center group hover:scale-105 transition-all duration-300">
+					<div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
+						<svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a2.5 2.5 0 100-5H9v5zm0 0H7.5a2.5 2.5 0 000 5H9v-5z"></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Great DX</h3>
+					<p class="text-gray-600">
+						Hot reload, excellent tooling, and familiar syntax make development fast and enjoyable.
+					</p>
+				</div>
+
+				<!-- Responsive Design -->
+				<div class="card text-center group hover:scale-105 transition-all duration-300">
+					<div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-cyan-200 transition-colors">
+						<svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Responsive</h3>
+					<p class="text-gray-600">
+						Mobile-first design with Tailwind CSS ensures perfect display across all devices and screen sizes.
+					</p>
+				</div>
+
+				<!-- Scalable -->
+				<div class="card text-center group hover:scale-105 transition-all duration-300">
+					<div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-200 transition-colors">
+						<svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Scalable</h3>
+					<p class="text-gray-600">
+						Built with Go's excellent concurrency model and efficient resource usage for handling high traffic.
+					</p>
+				</div>
+
+				<!-- Modern -->
+				<div class="card text-center group hover:scale-105 transition-all duration-300">
+					<div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-200 transition-colors">
+						<svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+						</svg>
+					</div>
+					<h3 class="text-xl font-semibold text-gray-900 mb-3">Modern</h3>
+					<p class="text-gray-600">
+						Latest web standards, modern JavaScript features, and cutting-edge development practices.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Getting Started -->
+	<section class="py-16 bg-white/50 backdrop-blur-sm">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+			<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+				Ready to Get Started?
+			</h2>
+			<p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+				Explore the source code, try the interactive demos, or start building your own Go web application with this modern stack.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a href="/" class="btn-primary inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
+					<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+					</svg>
+					Back to Home
+				</a>
+				<a href="https://github.com" class="btn-secondary inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
+					<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+					</svg>
+					View Source
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Custom Styles -->
+	<style>
+		@keyframes fade-in-up {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		.animate-fade-in-up {
+			animation: fade-in-up 0.6s ease-out;
+		}
+	</style>
 }
