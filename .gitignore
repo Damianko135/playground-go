@@ -40,3 +40,9 @@ node_modules/
 build/
 dist/
 static/styles.css
+
+# Logs
+*.log
+
+# IDE
+.vscode

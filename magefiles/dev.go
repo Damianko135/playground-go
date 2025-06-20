@@ -22,12 +22,18 @@ func Dev() error {
 		return devBasic()
 	}
 
+	// Install Tailwind dependencies for development
+	fmt.Println("📦 Installing Tailwind CSS dependencies...")
+	if err := runCmd("npm", "install", "-D", "tailwindcss@latest", "@tailwindcss/cli@latest"); err != nil {
+		return fmt.Errorf("failed to install Tailwind dependencies: %w", err)
+	}
+
 	fmt.Println("🛠️ Generating templ files...")
 	if err := runCmd(toolTempl, "generate"); err != nil {
 		return err
 	}
 
-	tailwindCmd := exec.Command("npx", "tailwindcss", "-i", "./internal/app.css", "-o", "./static/index.css", "--minify")
+	tailwindCmd := exec.Command("npx", "@tailwindcss/cli", "-i", "./internal/app.css", "-o", "./static/index.css", "--minify", "--watch")
 	tailwindCmd.Stdout = os.Stdout
 	tailwindCmd.Stderr = os.Stderr
 	tailwindCmd.Env = os.Environ()
@@ -57,14 +63,23 @@ func Dev() error {
 		done <- airCmd.Run()
 	}()
 
+	// Helper function to cleanup processes and dependencies
+	cleanup := func() {
+		_ = tailwindCmd.Process.Kill()
+		_ = airCmd.Process.Kill()
+		fmt.Println("🧹 Cleaning up node_modules...")
+		_ = os.RemoveAll("node_modules")
+		_ = os.Remove("package.json")
+		_ = os.Remove("package-lock.json")
+	}
+
 	select {
 	case sig := <-sigs:
 		fmt.Printf("\nReceived signal: %s, shutting down...\n", sig)
-		_ = tailwindCmd.Process.Kill()
-		_ = airCmd.Process.Kill()
+		cleanup()
 		return nil
 	case err := <-done:
-		_ = tailwindCmd.Process.Kill()
+		cleanup()
 		return err
 	}
 }
@@ -100,6 +115,11 @@ func Watch() error {
 func CleanDev() error {
 	fmt.Println("🧹 Cleaning development artifacts...")
 	_ = os.RemoveAll("tmp")
+
+	fmt.Println("Cleaning node_modules and package files...")
+	_ = os.RemoveAll("node_modules")
+	_ = os.Remove("package.json")
+	_ = os.Remove("package-lock.json")
 
 	fmt.Println("Cleaning generated templ files...")
 	if err := runCmd("find", ".", "-name", "*_templ.go", "-delete"); err != nil {
