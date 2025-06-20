@@ -1,0 +1,201 @@
+package views
+
+templ Home() {
+	@Layout("Home", homeContent())
+}
+
+templ homeContent() {
+	<!-- Hero Section -->
+	<section class="relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+			<div class="text-center">
+				<div class="animate-fade-in-up">
+					<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+						Welcome to 
+						<span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+							Playground Go
+						</span>
+					</h1>
+					<p class="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+						A modern web application built with Go, Templ, and Tailwind CSS. 
+						Experience the power of server-side rendering with beautiful, responsive design.
+					</p>
+				</div>
+				
+				<div class="animate-fade-in-up animation-delay-200 flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+					<a href="/playground" class="btn-primary group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
+						<svg class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+						</svg>
+						Try Playground
+					</a>
+					<a href="/tools" class="btn-secondary inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
+						<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+						</svg>
+						Dev Tools
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Floating Elements -->
+		<div class="absolute top-20 left-10 w-20 h-20 bg-green-200 rounded-full opacity-60 animate-float"></div>
+		<div class="absolute top-40 right-20 w-16 h-16 bg-emerald-300 rounded-full opacity-40 animate-float animation-delay-1000"></div>
+		<div class="absolute bottom-20 left-1/4 w-12 h-12 bg-green-400 rounded-full opacity-50 animate-float animation-delay-2000"></div>
+	</section>
+
+	<!-- Features Section -->
+	<section class="py-16 bg-white/50 backdrop-blur-sm">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+					Built with Modern Technologies
+				</h2>
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+					This application showcases the best practices in Go web development with cutting-edge tools and frameworks.
+				</p>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<!-- Go Feature -->
+				<div class="card group hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
+							<svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.082l-.199.303c-.023.047-.081.07-.128.07H1.811zM.047 11.306c-.047 0-.058-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.021c.047 0 .07.035.058.081l-.093.328c-.012.047-.058.07-.105.070H.047zM2.828 12.394c-.047 0-.058-.024-.035-.059l.163-.292c.023-.047.070-.070.117-.070h2.337c.047 0 .070.035.070.082l-.023.281c0 .047-.035.070-.082.070H2.828zM21.5 18.231c-2.49 0-2.784-1.154-2.784-1.154l-.419-1.617c-.105-.42-.419-.735-.84-.735h-1.154c-.42 0-.735.315-.84.735l-.419 1.617s-.293 1.154-2.784 1.154c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5c2.49 0 4.5 2.01 4.5 4.5 0 .315-.035.63-.105.945h1.26c-.07-.315-.105-.63-.105-.945 0-2.49 2.01-4.5 4.5-4.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"/>
+							</svg>
+						</div>
+						<h3 class="card-header mb-0 border-0 pb-0">Go Language</h3>
+					</div>
+					<p class="text-gray-600 mb-4">
+						Fast, reliable, and efficient backend powered by Go's excellent performance and concurrency features.
+					</p>
+					<div class="flex items-center text-sm text-green-600 font-medium">
+						<span>High Performance</span>
+						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+						</svg>
+					</div>
+				</div>
+
+				<!-- Templ Feature -->
+				<div class="card group hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200 transition-colors">
+							<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+							</svg>
+						</div>
+						<h3 class="card-header mb-0 border-0 pb-0">Templ</h3>
+					</div>
+					<p class="text-gray-600 mb-4">
+						Type-safe HTML templating with Go. Write templates that are compiled and type-checked at build time.
+					</p>
+					<div class="flex items-center text-sm text-green-600 font-medium">
+						<span>Type Safety</span>
+						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+						</svg>
+					</div>
+				</div>
+
+				<!-- Tailwind Feature -->
+				<div class="card group hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-cyan-200 transition-colors">
+							<svg class="w-6 h-6 text-cyan-600" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C7.666,17.818,9.027,19.2,12.001,19.2c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
+							</svg>
+						</div>
+						<h3 class="card-header mb-0 border-0 pb-0">Tailwind CSS</h3>
+					</div>
+					<p class="text-gray-600 mb-4">
+						Utility-first CSS framework for rapid UI development with consistent design and responsive layouts.
+					</p>
+					<div class="flex items-center text-sm text-green-600 font-medium">
+						<span>Rapid Development</span>
+						<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to Action Section -->
+	<section class="py-16">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+			<div class="card max-w-2xl mx-auto">
+				<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+					Ready to Build Something Amazing?
+				</h2>
+				<p class="text-lg text-gray-600 mb-8">
+					This template provides a solid foundation for your next Go web application. 
+					Customize it to fit your needs and start building!
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="/about" class="btn-primary inline-flex items-center px-6 py-3 text-lg font-semibold rounded-xl">
+						<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+						</svg>
+						Learn More
+					</a>
+					<a href="https://github.com" class="btn-secondary inline-flex items-center px-6 py-3 text-lg font-semibold rounded-xl">
+						<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+						</svg>
+						View Source
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Custom Styles and JavaScript -->
+	<style>
+		@keyframes fade-in-up {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+		
+		@keyframes float {
+			0%, 100% {
+				transform: translateY(0px);
+			}
+			50% {
+				transform: translateY(-20px);
+			}
+		}
+		
+		.animate-fade-in-up {
+			animation: fade-in-up 0.6s ease-out;
+		}
+		
+		.animate-float {
+			animation: float 6s ease-in-out infinite;
+		}
+		
+		.animation-delay-200 {
+			animation-delay: 0.2s;
+		}
+		
+		.animation-delay-1000 {
+			animation-delay: 1s;
+		}
+		
+		.animation-delay-2000 {
+			animation-delay: 2s;
+		}
+	</style>
+
+	<!-- Template ready for your custom functionality -->
+}

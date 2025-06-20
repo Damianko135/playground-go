@@ -1,0 +1,439 @@
+package views
+
+templ Tools() {
+	@Layout("Developer Tools", toolsContent())
+}
+
+templ toolsContent() {
+	<!-- Hero Section -->
+	<section class="py-16 sm:py-24">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+					Developer 
+					<span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+						Tools
+					</span>
+				</h1>
+				<p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+					Useful utilities and tools for developers. JSON formatting, base64 encoding, hash generation, and more.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Tools Grid -->
+	<section class="py-16 bg-white/50 backdrop-blur-sm">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+				
+				<!-- JSON Formatter -->
+				<div class="card">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">JSON Formatter</h3>
+					</div>
+					<div class="space-y-4">
+						<textarea id="json-input" placeholder="Paste your JSON here..." class="input-field h-32 resize-none font-mono text-sm"></textarea>
+						<div class="flex space-x-2">
+							<button onclick="formatJSON()" class="btn-primary flex-1">Format</button>
+							<button onclick="minifyJSON()" class="btn-secondary flex-1">Minify</button>
+							<button onclick="validateJSON()" class="btn-secondary flex-1">Validate</button>
+						</div>
+						<div id="json-output" class="bg-gray-50 border border-gray-200 rounded-lg p-4 min-h-[100px] font-mono text-sm whitespace-pre-wrap"></div>
+						<div id="json-status" class="text-sm"></div>
+					</div>
+				</div>
+
+				<!-- Base64 Encoder/Decoder -->
+				<div class="card">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Base64 Encoder/Decoder</h3>
+					</div>
+					<div class="space-y-4">
+						<textarea id="base64-input" placeholder="Enter text to encode or base64 to decode..." class="input-field h-32 resize-none font-mono text-sm"></textarea>
+						<div class="flex space-x-2">
+							<button onclick="encodeBase64()" class="btn-primary flex-1">Encode</button>
+							<button onclick="decodeBase64()" class="btn-secondary flex-1">Decode</button>
+						</div>
+						<div id="base64-output" class="bg-gray-50 border border-gray-200 rounded-lg p-4 min-h-[100px] font-mono text-sm whitespace-pre-wrap"></div>
+					</div>
+				</div>
+
+				<!-- URL Encoder/Decoder -->
+				<div class="card">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">URL Encoder/Decoder</h3>
+					</div>
+					<div class="space-y-4">
+						<textarea id="url-input" placeholder="Enter URL or text to encode/decode..." class="input-field h-32 resize-none font-mono text-sm"></textarea>
+						<div class="flex space-x-2">
+							<button onclick="encodeURL()" class="btn-primary flex-1">Encode</button>
+							<button onclick="decodeURL()" class="btn-secondary flex-1">Decode</button>
+						</div>
+						<div id="url-output" class="bg-gray-50 border border-gray-200 rounded-lg p-4 min-h-[100px] font-mono text-sm whitespace-pre-wrap"></div>
+					</div>
+				</div>
+
+				<!-- Hash Generator -->
+				<div class="card">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Hash Generator</h3>
+					</div>
+					<div class="space-y-4">
+						<textarea id="hash-input" placeholder="Enter text to hash..." class="input-field h-24 resize-none font-mono text-sm"></textarea>
+						<div class="grid grid-cols-2 gap-2">
+							<button onclick="generateHash('md5')" class="btn-secondary">MD5</button>
+							<button onclick="generateHash('sha1')" class="btn-secondary">SHA1</button>
+							<button onclick="generateHash('sha256')" class="btn-primary">SHA256</button>
+							<button onclick="generateHash('sha512')" class="btn-secondary">SHA512</button>
+						</div>
+						<div id="hash-output" class="space-y-2"></div>
+					</div>
+				</div>
+
+				<!-- Color Converter -->
+				<div class="card">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h16M7 21v-4a2 2 0 012-2h4a2 2 0 012 2v4M7 21h4"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Color Converter</h3>
+					</div>
+					<div class="space-y-4">
+						<div class="flex space-x-2">
+							<input type="color" id="color-picker" class="w-16 h-10 border border-gray-300 rounded cursor-pointer">
+							<input type="text" id="color-input" placeholder="#FF5733 or rgb(255,87,51)" class="input-field flex-1 font-mono">
+						</div>
+						<button onclick="convertColor()" class="btn-primary w-full">Convert Color</button>
+						<div id="color-output" class="space-y-2"></div>
+						<div id="color-preview" class="w-full h-16 border border-gray-300 rounded-lg"></div>
+					</div>
+				</div>
+
+				<!-- Text Utilities -->
+				<div class="card">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Text Utilities</h3>
+					</div>
+					<div class="space-y-4">
+						<textarea id="text-input" placeholder="Enter your text here..." class="input-field h-32 resize-none"></textarea>
+						<div class="grid grid-cols-2 gap-2">
+							<button onclick="transformText('upper')" class="btn-secondary text-sm">UPPERCASE</button>
+							<button onclick="transformText('lower')" class="btn-secondary text-sm">lowercase</button>
+							<button onclick="transformText('title')" class="btn-secondary text-sm">Title Case</button>
+							<button onclick="transformText('reverse')" class="btn-secondary text-sm">esreveR</button>
+						</div>
+						<div id="text-stats" class="text-sm text-gray-600 space-y-1"></div>
+						<div id="text-output" class="bg-gray-50 border border-gray-200 rounded-lg p-4 min-h-[60px] font-mono text-sm"></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- JavaScript for Tools -->
+	<script>
+		// JSON Formatter
+		function formatJSON() {
+			const input = document.getElementById('json-input').value;
+			const output = document.getElementById('json-output');
+			const status = document.getElementById('json-status');
+			
+			try {
+				const parsed = JSON.parse(input);
+				const formatted = JSON.stringify(parsed, null, 2);
+				output.textContent = formatted;
+				status.innerHTML = '<span class="text-green-600">✓ Valid JSON</span>';
+			} catch (error) {
+				output.textContent = '';
+				status.innerHTML = `<span class="text-red-600">✗ Error: ${error.message}</span>`;
+			}
+		}
+
+		function minifyJSON() {
+			const input = document.getElementById('json-input').value;
+			const output = document.getElementById('json-output');
+			const status = document.getElementById('json-status');
+			
+			try {
+				const parsed = JSON.parse(input);
+				const minified = JSON.stringify(parsed);
+				output.textContent = minified;
+				status.innerHTML = '<span class="text-green-600">✓ JSON Minified</span>';
+			} catch (error) {
+				output.textContent = '';
+				status.innerHTML = `<span class="text-red-600">✗ Error: ${error.message}</span>`;
+			}
+		}
+
+		function validateJSON() {
+			const input = document.getElementById('json-input').value;
+			const status = document.getElementById('json-status');
+			
+			try {
+				JSON.parse(input);
+				status.innerHTML = '<span class="text-green-600">✓ Valid JSON</span>';
+			} catch (error) {
+				status.innerHTML = `<span class="text-red-600">✗ Invalid JSON: ${error.message}</span>`;
+			}
+		}
+
+		// Base64 Encoder/Decoder
+		function encodeBase64() {
+			const input = document.getElementById('base64-input').value;
+			const output = document.getElementById('base64-output');
+			
+			try {
+				const encoded = btoa(unescape(encodeURIComponent(input)));
+				output.textContent = encoded;
+			} catch (error) {
+				output.textContent = 'Error encoding: ' + error.message;
+			}
+		}
+
+		function decodeBase64() {
+			const input = document.getElementById('base64-input').value;
+			const output = document.getElementById('base64-output');
+			
+			try {
+				const decoded = decodeURIComponent(escape(atob(input)));
+				output.textContent = decoded;
+			} catch (error) {
+				output.textContent = 'Error decoding: ' + error.message;
+			}
+		}
+
+		// URL Encoder/Decoder
+		function encodeURL() {
+			const input = document.getElementById('url-input').value;
+			const output = document.getElementById('url-output');
+			
+			try {
+				const encoded = encodeURIComponent(input);
+				output.textContent = encoded;
+			} catch (error) {
+				output.textContent = 'Error encoding: ' + error.message;
+			}
+		}
+
+		function decodeURL() {
+			const input = document.getElementById('url-input').value;
+			const output = document.getElementById('url-output');
+			
+			try {
+				const decoded = decodeURIComponent(input);
+				output.textContent = decoded;
+			} catch (error) {
+				output.textContent = 'Error decoding: ' + error.message;
+			}
+		}
+
+		// Hash Generator (using Web Crypto API)
+		async function generateHash(algorithm) {
+			const input = document.getElementById('hash-input').value;
+			const output = document.getElementById('hash-output');
+			
+			if (!input) {
+				output.innerHTML = '<p class="text-red-500">Please enter text to hash</p>';
+				return;
+			}
+
+			try {
+				let hashBuffer;
+				const encoder = new TextEncoder();
+				const data = encoder.encode(input);
+
+				switch (algorithm) {
+					case 'sha1':
+						hashBuffer = await crypto.subtle.digest('SHA-1', data);
+						break;
+					case 'sha256':
+						hashBuffer = await crypto.subtle.digest('SHA-256', data);
+						break;
+					case 'sha512':
+						hashBuffer = await crypto.subtle.digest('SHA-512', data);
+						break;
+					case 'md5':
+						// MD5 is not supported by Web Crypto API, show a simple hash instead
+						output.innerHTML = '<p class="text-yellow-600">MD5 not supported in browser. Use SHA-256 instead.</p>';
+						return;
+				}
+
+				const hashArray = Array.from(new Uint8Array(hashBuffer));
+				const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+				
+				output.innerHTML = `
+					<div class="bg-gray-50 border border-gray-200 rounded p-3">
+						<div class="flex justify-between items-center mb-2">
+							<span class="font-medium text-gray-700">${algorithm.toUpperCase()}:</span>
+							<button onclick="copyToClipboard('${hashHex}')" class="text-xs bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600">Copy</button>
+						</div>
+						<code class="text-sm font-mono break-all">${hashHex}</code>
+					</div>
+				`;
+			} catch (error) {
+				output.innerHTML = `<p class="text-red-500">Error generating hash: ${error.message}</p>`;
+			}
+		}
+
+		// Color Converter
+		function convertColor() {
+			const input = document.getElementById('color-input').value || document.getElementById('color-picker').value;
+			const output = document.getElementById('color-output');
+			const preview = document.getElementById('color-preview');
+			
+			try {
+				let color = input.trim();
+				
+				// Convert hex to RGB
+				if (color.startsWith('#')) {
+					const hex = color.slice(1);
+					const r = parseInt(hex.substr(0, 2), 16);
+					const g = parseInt(hex.substr(2, 2), 16);
+					const b = parseInt(hex.substr(4, 2), 16);
+					
+					const hsl = rgbToHsl(r, g, b);
+					
+					output.innerHTML = `
+						<div class="space-y-2 text-sm">
+							<div><strong>HEX:</strong> <code>${color}</code></div>
+							<div><strong>RGB:</strong> <code>rgb(${r}, ${g}, ${b})</code></div>
+							<div><strong>HSL:</strong> <code>hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)</code></div>
+						</div>
+					`;
+					preview.style.backgroundColor = color;
+				}
+			} catch (error) {
+				output.innerHTML = `<p class="text-red-500">Invalid color format</p>`;
+			}
+		}
+
+		// RGB to HSL conversion
+		function rgbToHsl(r, g, b) {
+			r /= 255; g /= 255; b /= 255;
+			const max = Math.max(r, g, b), min = Math.min(r, g, b);
+			let h, s, l = (max + min) / 2;
+
+			if (max === min) {
+				h = s = 0;
+			} else {
+				const d = max - min;
+				s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+				switch (max) {
+					case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+					case g: h = (b - r) / d + 2; break;
+					case b: h = (r - g) / d + 4; break;
+				}
+				h /= 6;
+			}
+
+			return {
+				h: Math.round(h * 360),
+				s: Math.round(s * 100),
+				l: Math.round(l * 100)
+			};
+		}
+
+		// Text Utilities
+		function transformText(type) {
+			const input = document.getElementById('text-input').value;
+			const output = document.getElementById('text-output');
+			const stats = document.getElementById('text-stats');
+			
+			let transformed = '';
+			
+			switch (type) {
+				case 'upper':
+					transformed = input.toUpperCase();
+					break;
+				case 'lower':
+					transformed = input.toLowerCase();
+					break;
+				case 'title':
+					transformed = input.replace(/\w\S*/g, (txt) => 
+						txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+					);
+					break;
+				case 'reverse':
+					transformed = input.split('').reverse().join('');
+					break;
+			}
+			
+			output.textContent = transformed;
+			
+			// Update stats
+			const words = input.trim() ? input.trim().split(/\s+/).length : 0;
+			const chars = input.length;
+			const charsNoSpaces = input.replace(/\s/g, '').length;
+			
+			stats.innerHTML = `
+				<div>Characters: ${chars}</div>
+				<div>Characters (no spaces): ${charsNoSpaces}</div>
+				<div>Words: ${words}</div>
+				<div>Lines: ${input.split('\n').length}</div>
+			`;
+		}
+
+		// Copy to clipboard function
+		function copyToClipboard(text) {
+			navigator.clipboard.writeText(text).then(() => {
+				const notification = document.createElement('div');
+				notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+				notification.textContent = 'Copied to clipboard!';
+				document.body.appendChild(notification);
+				setTimeout(() => notification.remove(), 2000);
+			});
+		}
+
+		// Auto-update text stats
+		document.getElementById('text-input').addEventListener('input', function() {
+			const input = this.value;
+			const stats = document.getElementById('text-stats');
+			
+			const words = input.trim() ? input.trim().split(/\s+/).length : 0;
+			const chars = input.length;
+			const charsNoSpaces = input.replace(/\s/g, '').length;
+			
+			stats.innerHTML = `
+				<div>Characters: ${chars}</div>
+				<div>Characters (no spaces): ${charsNoSpaces}</div>
+				<div>Words: ${words}</div>
+				<div>Lines: ${input.split('\n').length}</div>
+			`;
+		});
+
+		// Color picker sync
+		document.getElementById('color-picker').addEventListener('change', function() {
+			document.getElementById('color-input').value = this.value;
+			convertColor();
+		});
+	</script>
+}

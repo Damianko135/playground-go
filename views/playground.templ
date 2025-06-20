@@ -1,0 +1,428 @@
+package views
+
+templ Playground() {
+	@Layout("Playground", playgroundContent())
+}
+
+templ playgroundContent() {
+	<!-- Hero Section -->
+	<section class="py-16 sm:py-24">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="text-center mb-16">
+				<h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+					Interactive 
+					<span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+						Playground
+					</span>
+				</h1>
+				<p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+					Explore interactive demos, real-time data, and dynamic features powered by Go and modern web technologies.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Interactive Widgets Grid -->
+	<section class="py-16 bg-white/50 backdrop-blur-sm">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				
+				<!-- Weather Widget -->
+				<div class="card hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.002 4.002 0 003 15z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Weather</h3>
+					</div>
+					<div id="weather-widget" class="space-y-2">
+						<div class="animate-pulse">
+							<div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+							<div class="h-4 bg-gray-200 rounded w-1/2"></div>
+						</div>
+					</div>
+					<button onclick="loadWeather()" class="btn-primary mt-4 w-full">
+						Refresh Weather
+					</button>
+				</div>
+
+				<!-- Quote Widget -->
+				<div class="card hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Daily Quote</h3>
+					</div>
+					<div id="quote-widget" class="space-y-2">
+						<div class="animate-pulse">
+							<div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+							<div class="h-4 bg-gray-200 rounded w-2/3"></div>
+						</div>
+					</div>
+					<button onclick="loadQuote()" class="btn-primary mt-4 w-full">
+						New Quote
+					</button>
+				</div>
+
+				<!-- Color Palette Widget -->
+				<div class="card hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h16M7 21v-4a2 2 0 012-2h4a2 2 0 012 2v4M7 21h4"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Color Palette</h3>
+					</div>
+					<div id="palette-widget" class="space-y-2">
+						<div class="animate-pulse">
+							<div class="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+							<div class="flex space-x-1">
+								<div class="w-8 h-8 bg-gray-200 rounded"></div>
+								<div class="w-8 h-8 bg-gray-200 rounded"></div>
+								<div class="w-8 h-8 bg-gray-200 rounded"></div>
+								<div class="w-8 h-8 bg-gray-200 rounded"></div>
+								<div class="w-8 h-8 bg-gray-200 rounded"></div>
+							</div>
+						</div>
+					</div>
+					<button onclick="loadPalette()" class="btn-primary mt-4 w-full">
+						Generate Palette
+					</button>
+				</div>
+
+				<!-- Random Number Generator -->
+				<div class="card hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h16M7 21v-4a2 2 0 012-2h4a2 2 0 012 2v4M7 21h4"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Random Number</h3>
+					</div>
+					<div class="space-y-3">
+						<div class="flex space-x-2">
+							<input type="number" id="min-num" placeholder="Min" value="1" class="input-field flex-1">
+							<input type="number" id="max-num" placeholder="Max" value="100" class="input-field flex-1">
+						</div>
+						<div id="random-result" class="text-center">
+							<span class="text-3xl font-bold text-green-600">?</span>
+						</div>
+					</div>
+					<button onclick="generateRandomNumber()" class="btn-primary mt-4 w-full">
+						Generate Number
+					</button>
+				</div>
+
+				<!-- Programming Joke -->
+				<div class="card hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a2.5 2.5 0 100-5H9v5zm0 0H7.5a2.5 2.5 0 000 5H9v-5z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">Dev Humor</h3>
+					</div>
+					<div id="joke-widget" class="space-y-2 min-h-[100px]">
+						<div class="animate-pulse">
+							<div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+							<div class="h-4 bg-gray-200 rounded w-3/4"></div>
+						</div>
+					</div>
+					<button onclick="loadJoke()" class="btn-primary mt-4 w-full">
+						Tell Me a Joke
+					</button>
+				</div>
+
+				<!-- System Stats -->
+				<div class="card hover:scale-105 transition-all duration-300">
+					<div class="flex items-center mb-4">
+						<div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+							<svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900">System Stats</h3>
+					</div>
+					<div id="stats-widget" class="space-y-2">
+						<div class="animate-pulse">
+							<div class="h-3 bg-gray-200 rounded w-full mb-2"></div>
+							<div class="h-3 bg-gray-200 rounded w-4/5 mb-2"></div>
+							<div class="h-3 bg-gray-200 rounded w-3/5"></div>
+						</div>
+					</div>
+					<button onclick="loadStats()" class="btn-primary mt-4 w-full">
+						Refresh Stats
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- Real-time Clock Section -->
+	<section class="py-16">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="card text-center">
+				<h2 class="text-3xl font-bold text-gray-900 mb-8">World Clock</h2>
+				<div id="world-clock" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+					<!-- Clock widgets will be populated by JavaScript -->
+				</div>
+				<button onclick="loadWorldClock()" class="btn-primary mt-6">
+					Update Clocks
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Interactive Theme Switcher -->
+	<section class="py-16 bg-white/50 backdrop-blur-sm">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+			<div class="card">
+				<h2 class="text-3xl font-bold text-gray-900 mb-6">Theme Switcher</h2>
+				<p class="text-gray-600 mb-8">Try different color themes for the application</p>
+				<div class="flex flex-wrap justify-center gap-4">
+					<button onclick="switchTheme('green')" class="theme-btn bg-green-500 hover:bg-green-600">
+						Green
+					</button>
+					<button onclick="switchTheme('blue')" class="theme-btn bg-blue-500 hover:bg-blue-600">
+						Blue
+					</button>
+					<button onclick="switchTheme('purple')" class="theme-btn bg-purple-500 hover:bg-purple-600">
+						Purple
+					</button>
+					<button onclick="switchTheme('red')" class="theme-btn bg-red-500 hover:bg-red-600">
+						Red
+					</button>
+					<button onclick="switchTheme('default')" class="theme-btn bg-gray-500 hover:bg-gray-600">
+						Default
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- JavaScript for Interactive Features -->
+	<script>
+		// Load weather data
+		async function loadWeather() {
+			try {
+				const response = await fetch('/api/weather');
+				const data = await response.json();
+				document.getElementById('weather-widget').innerHTML = `
+					<div class="space-y-2">
+						<div class="flex justify-between items-center">
+							<span class="font-medium">${data.location}</span>
+							<span class="text-2xl font-bold text-blue-600">${data.temperature}°C</span>
+						</div>
+						<p class="text-gray-600">${data.description}</p>
+						<div class="flex justify-between text-sm text-gray-500">
+							<span>Humidity: ${data.humidity}%</span>
+							<span>Wind: ${data.wind_speed} km/h</span>
+						</div>
+						<p class="text-xs text-gray-400">Updated: ${data.timestamp}</p>
+					</div>
+				`;
+			} catch (error) {
+				document.getElementById('weather-widget').innerHTML = '<p class="text-red-500">Failed to load weather data</p>';
+			}
+		}
+
+		// Load quote
+		async function loadQuote() {
+			try {
+				const response = await fetch('/api/quote');
+				const data = await response.json();
+				document.getElementById('quote-widget').innerHTML = `
+					<div class="space-y-3">
+						<blockquote class="text-gray-700 italic">"${data.text}"</blockquote>
+						<cite class="text-sm text-gray-500 block text-right">— ${data.author}</cite>
+					</div>
+				`;
+			} catch (error) {
+				document.getElementById('quote-widget').innerHTML = '<p class="text-red-500">Failed to load quote</p>';
+			}
+		}
+
+		// Load color palette
+		async function loadPalette() {
+			try {
+				const response = await fetch('/api/palette');
+				const data = await response.json();
+				const colorsHtml = data.colors.map(color => 
+					`<div class="w-8 h-8 rounded cursor-pointer hover:scale-110 transition-transform" 
+					     style="background-color: ${color}" 
+					     title="${color}" 
+					     onclick="copyToClipboard('${color}')"></div>`
+				).join('');
+				
+				document.getElementById('palette-widget').innerHTML = `
+					<div class="space-y-3">
+						<h4 class="font-medium text-gray-900">${data.name}</h4>
+						<div class="flex space-x-1">${colorsHtml}</div>
+						<p class="text-xs text-gray-500">Theme: ${data.theme} • Click colors to copy</p>
+					</div>
+				`;
+			} catch (error) {
+				document.getElementById('palette-widget').innerHTML = '<p class="text-red-500">Failed to load palette</p>';
+			}
+		}
+
+		// Generate random number
+		async function generateRandomNumber() {
+			const min = document.getElementById('min-num').value || 1;
+			const max = document.getElementById('max-num').value || 100;
+			
+			try {
+				const response = await fetch(`/api/random?min=${min}&max=${max}`);
+				const data = await response.json();
+				document.getElementById('random-result').innerHTML = `
+					<span class="text-4xl font-bold text-green-600 animate-pulse">${data.number}</span>
+				`;
+			} catch (error) {
+				document.getElementById('random-result').innerHTML = '<span class="text-red-500">Error</span>';
+			}
+		}
+
+		// Load joke
+		async function loadJoke() {
+			try {
+				const response = await fetch('/api/joke');
+				const data = await response.json();
+				document.getElementById('joke-widget').innerHTML = `
+					<div class="space-y-3">
+						<p class="text-gray-700 font-medium">${data.setup}</p>
+						<p class="text-green-600 font-semibold">${data.punchline}</p>
+						<span class="badge">${data.type}</span>
+					</div>
+				`;
+			} catch (error) {
+				document.getElementById('joke-widget').innerHTML = '<p class="text-red-500">Failed to load joke</p>';
+			}
+		}
+
+		// Load system stats
+		async function loadStats() {
+			try {
+				const response = await fetch('/api/stats');
+				const data = await response.json();
+				document.getElementById('stats-widget').innerHTML = `
+					<div class="space-y-2 text-sm">
+						<div class="flex justify-between">
+							<span>CPU Usage:</span>
+							<span class="font-medium">${data.cpu_usage}</span>
+						</div>
+						<div class="flex justify-between">
+							<span>Memory:</span>
+							<span class="font-medium">${data.memory_usage}</span>
+						</div>
+						<div class="flex justify-between">
+							<span>Disk:</span>
+							<span class="font-medium">${data.disk_usage}</span>
+						</div>
+						<div class="flex justify-between">
+							<span>Uptime:</span>
+							<span class="font-medium text-xs">${data.uptime}</span>
+						</div>
+					</div>
+				`;
+			} catch (error) {
+				document.getElementById('stats-widget').innerHTML = '<p class="text-red-500">Failed to load stats</p>';
+			}
+		}
+
+		// Load world clock
+		async function loadWorldClock() {
+			try {
+				const response = await fetch('/api/timezones');
+				const data = await response.json();
+				const clocksHtml = Object.entries(data.timezones).map(([city, time]) => `
+					<div class="text-center p-3 bg-white rounded-lg border border-green-200">
+						<div class="text-lg font-bold text-green-600">${time}</div>
+						<div class="text-sm text-gray-600">${city}</div>
+					</div>
+				`).join('');
+				
+				document.getElementById('world-clock').innerHTML = clocksHtml;
+			} catch (error) {
+				document.getElementById('world-clock').innerHTML = '<p class="text-red-500">Failed to load clocks</p>';
+			}
+		}
+
+		// Copy to clipboard
+		function copyToClipboard(text) {
+			navigator.clipboard.writeText(text).then(() => {
+				// Show a temporary notification
+				const notification = document.createElement('div');
+				notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+				notification.textContent = `Copied ${text}`;
+				document.body.appendChild(notification);
+				setTimeout(() => notification.remove(), 2000);
+			});
+		}
+
+		// Theme switcher
+		function switchTheme(theme) {
+			const root = document.documentElement;
+			const themes = {
+				green: { primary: '#10b981', secondary: '#34d399' },
+				blue: { primary: '#3b82f6', secondary: '#60a5fa' },
+				purple: { primary: '#8b5cf6', secondary: '#a78bfa' },
+				red: { primary: '#ef4444', secondary: '#f87171' },
+				default: { primary: '#10b981', secondary: '#34d399' }
+			};
+			
+			if (themes[theme]) {
+				root.style.setProperty('--green-primary', themes[theme].primary);
+				root.style.setProperty('--green-secondary', themes[theme].secondary);
+				
+				// Update button colors
+				document.querySelectorAll('.btn-primary').forEach(btn => {
+					btn.style.backgroundColor = themes[theme].primary;
+				});
+			}
+		}
+
+		// Auto-load initial data
+		document.addEventListener('DOMContentLoaded', function() {
+			loadWeather();
+			loadQuote();
+			loadPalette();
+			loadJoke();
+			loadStats();
+			loadWorldClock();
+			
+			// Auto-refresh some widgets every 30 seconds
+			setInterval(() => {
+				loadStats();
+				loadWorldClock();
+			}, 30000);
+		});
+	</script>
+
+	<style>
+		.theme-btn {
+			@apply px-6 py-2 text-white font-semibold rounded-lg transition-all duration-200 hover:scale-105;
+		}
+		
+		.animate-pulse {
+			animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+		}
+		
+		@keyframes pulse {
+			0%, 100% {
+				opacity: 1;
+			}
+			50% {
+				opacity: .5;
+			}
+		}
+	</style>
+}
