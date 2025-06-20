@@ -7,8 +7,6 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
-	"path/filepath"
-	"runtime"
 	"syscall"
 )
 
@@ -29,10 +27,6 @@ func Dev() error {
 		return err
 	}
 
-	tailwindPath := filepath.Join("node_modules", ".bin", "tailwindcss")
-	if runtime.GOOS == "windows" {
-		tailwindPath += ".cmd"
-	}
 	tailwindCmd := exec.Command("npx", "tailwindcss", "-i", "./internal/app.css", "-o", "./static/index.css", "--minify")
 	tailwindCmd.Stdout = os.Stdout
 	tailwindCmd.Stderr = os.Stderr
