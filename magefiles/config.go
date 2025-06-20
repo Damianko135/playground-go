@@ -20,6 +20,7 @@ const (
 	toolGolangciLint = "golangci-lint"
 	toolGolds        = "golds"
 	toolNpm          = "npm"
+	mageTool         = "mage"
 )
 
 func outputBin() string {

@@ -72,8 +72,7 @@ func main() {
 	apiGroup.Use(middleware.APIKeyAuth(cfg.API.Key))
 
 	// Static files
-	e.Static("/static", "./static")
-	e.Static("/", "./public")
+	e.Static("/static", "../../static")
 
 	// Web routes
 	e.GET("/", utils.Temple(views.Home()))

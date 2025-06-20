@@ -49,4 +49,4 @@ static/styles.css
 Thumbs.db
 
 # Templ builded files:
-# views/*.go
+views/*.go

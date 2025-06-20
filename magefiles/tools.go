@@ -17,6 +17,7 @@ func Tools() error {
 		{toolTempl, "github.com/a-h/templ/cmd/templ@latest"},
 		{toolAir, "github.com/air-verse/air@latest"},
 		{toolGolangciLint, "github.com/golangci/golangci-lint/cmd/golangci-lint@latest"},
+		{mageTool, "github.com/magefile/mage@latest"},
 	}
 	fmt.Println("🛠️ Installing development tools...")
 	for _, tool := range tools {
