@@ -10,38 +10,46 @@ import (
 
 // ─── Testing & CI ─────────────────────────────────────────────────────────────
 
-// Test runs all Go tests in the project
+// Test runs all tests
 func Test() error {
-	fmt.Println("🧪 Running tests...")
+	fmt.Println("🧪 Testing...")
 	return runCmd("go", "test", "./...")
 }
 
-// Lint runs golangci-lint for code quality checks, falls back to go vet if not available
+// Lint runs code quality checks
 func Lint() error {
 	if err := ensureTool(toolGolangciLint); err != nil {
-		fmt.Println("⚠️ golangci-lint not found, falling back to go vet")
-		fmt.Println("For better linting, install: https://golangci-lint.run/usage/install/")
-		return lintBasic()
+		fmt.Println("⚠️ golangci-lint not found, using go vet")
+		return lintFallback()
 	}
-	fmt.Println("🪄 Running linter...")
+
+	fmt.Println("🪄 Linting...")
 	return runCmd(toolGolangciLint, "run")
 }
 
-// lintBasic is an internal fallback function using go vet
-func lintBasic() error {
-	fmt.Println("🔍 Running go vet...")
-	return runCmd("go", "vet", "./...")
-}
-
-// Fmt formats all Go code using gofmt
+// Fmt formats code
 func Fmt() error {
-	fmt.Println("🧹 Formatting code...")
+	fmt.Println("🧹 Formatting...")
 	return runCmd("gofmt", "-s", "-w", ".")
 }
 
-// CI runs the complete CI pipeline: lint, test, and build
-func CI() error {
-	fmt.Println("🔁 Running CI steps...")
-	mg.SerialDeps(Lint, Test, Build)
+// Check runs quality checks
+func Check() error {
+	fmt.Println("🔍 Checking...")
+	mg.SerialDeps(Fmt, Lint, Test)
 	return nil
+}
+
+// CI runs complete pipeline
+func CI() error {
+	fmt.Println("🔁 CI...")
+	mg.SerialDeps(Check, Build)
+	return nil
+}
+
+// ─── Internal Functions ───────────────────────────────────────────────────────
+
+func lintFallback() error {
+	fmt.Println("🔍 Running go vet...")
+	return runCmd("go", "vet", "./...")
 }

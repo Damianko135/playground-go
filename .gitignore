@@ -40,6 +40,7 @@ node_modules/
 build/
 dist/
 static/styles.css
+bin/
 
 # Logs
 *.log

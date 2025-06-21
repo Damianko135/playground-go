@@ -8,7 +8,7 @@ import (
 
 // ─── Tool Management ─────────────────────────────────────────────────────────
 
-// Tools installs all required development tools (templ, air, golangci-lint)
+// Tools installs development tools
 func Tools() error {
 	tools := []struct {
 		name string
@@ -17,16 +17,27 @@ func Tools() error {
 		{toolTempl, "github.com/a-h/templ/cmd/templ@latest"},
 		{toolAir, "github.com/air-verse/air@latest"},
 		{toolGolangciLint, "github.com/golangci/golangci-lint/cmd/golangci-lint@latest"},
-		{mageTool, "github.com/magefile/mage@latest"},
+		{toolMage, "github.com/magefile/mage@latest"},
+		{toolGomarkdoc, "github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest"},
 	}
-	fmt.Println("🛠️ Installing development tools...")
+
+	fmt.Println("🛠️ Installing tools...")
+
+	var failed []string
 	for _, tool := range tools {
-		fmt.Printf("Installing %s...\n", tool.name)
+		fmt.Printf("📦 %s...\n", tool.name)
 		if err := runCmd("go", "install", tool.pkg); err != nil {
-			fmt.Printf("❌ Failed to install %s: %v\n", tool.name, err)
+			fmt.Printf("❌ %s failed\n", tool.name)
+			failed = append(failed, tool.name)
 			continue
 		}
-		fmt.Printf("✅ %s installed successfully\n", tool.name)
+		fmt.Printf("✅ %s\n", tool.name)
 	}
+
+	if len(failed) > 0 {
+		return fmt.Errorf("failed: %v", failed)
+	}
+
+	fmt.Println("🎉 Done!")
 	return nil
 }

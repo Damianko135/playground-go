@@ -26,7 +26,6 @@ type SystemInfo struct {
 	MemoryMB     uint64 `json:"memory_mb"`
 }
 
-
 // HealthCheck returns the health status of the application
 func HealthCheck(c echo.Context) error {
 	var m runtime.MemStats
