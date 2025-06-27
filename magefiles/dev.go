@@ -55,8 +55,7 @@ func devFallback() error {
 	mg.Deps(Gen)
 
 	fmt.Println("🔄 Basic dev mode...")
-	cmd := exec.Command("go", "run", ".")
-	cmd.Dir = "cmd/server"
+	cmd := exec.Command("go", "run", "cmd/server/main.go")
 	cmd.Env = append(os.Environ(), devEnv, "PORT="+devPort)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -87,8 +86,7 @@ func startTailwind() (*exec.Cmd, error) {
 }
 
 func setupAir() *exec.Cmd {
-	cmd := exec.Command(toolAir, "-c", "../../.air.toml")
-	cmd.Dir = "cmd/server"
+	cmd := exec.Command(toolAir, "-c", ".air.toml")
 	cmd.Env = append(os.Environ(), devEnv, "PORT="+devPort)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
