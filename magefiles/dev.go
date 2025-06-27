@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/magefile/mage/mg"
 )
@@ -106,6 +107,10 @@ func runWithShutdown(cmd *exec.Cmd, cleanup func()) error {
 	select {
 	case sig := <-sigs:
 		fmt.Printf("\nShutting down (%s)...\n", sig)
+		// Kill the Air process first
+		if cmd.Process != nil {
+			_ = cmd.Process.Kill()
+		}
 		cleanup()
 		return nil
 	case err := <-done:
@@ -114,12 +119,73 @@ func runWithShutdown(cmd *exec.Cmd, cleanup func()) error {
 	}
 }
 
+// list of files and folders to delete after dev
+
+var packages = []string{
+	"node_modules",
+	"package.json",
+	"package-lock.json",
+	"cmd/server/tmp",
+	"tmp/",
+}
+
 func cleanupTailwind(cmd *exec.Cmd) {
 	if cmd != nil && cmd.Process != nil {
+		fmt.Printf("🔪 Killing Tailwind process (pid: %d)...\n", cmd.Process.Pid)
 		_ = cmd.Process.Kill()
+		_ = cmd.Wait()
+
+		// Give Windows time to release native file handles
+		time.Sleep(3 * time.Second)
 	}
 	fmt.Println("🧹 Cleaning up...")
-	_ = os.RemoveAll("node_modules")
-	_ = os.Remove("package.json")
-	_ = os.Remove("package-lock.json")
+
+	for _, fileOrFolder := range packages {
+		if _, err := os.Stat(fileOrFolder); err == nil {
+			fmt.Printf("📁 Removing %s...\n", fileOrFolder)
+			if err := removeWithRetry(fileOrFolder, 5); err != nil {
+				fmt.Printf("⚠️ Failed to remove %s: %v\n", fileOrFolder, err)
+			} else {
+				fmt.Printf("✅ %s removed\n", fileOrFolder)
+			}
+		} else {
+			fmt.Printf("ℹ️ %s not found\n", fileOrFolder)
+		}
+	}
+}
+
+// removeWithRetry attempts to remove a file/folder with retries for Windows file locking issues
+func removeWithRetry(path string, maxRetries int) error {
+	var lastErr error
+	for i := 0; i < maxRetries; i++ {
+		if err := os.RemoveAll(path); err == nil {
+			return nil
+		} else {
+			lastErr = err
+			if i < maxRetries-1 {
+				fmt.Printf("🔄 Retry %d/%d for %s...\n", i+1, maxRetries, path)
+				// Wait longer between retries, especially for Windows file locks
+				time.Sleep(time.Second * time.Duration(i+2))
+			}
+		}
+	}
+
+	// If we still can't remove it, try a more aggressive approach on Windows
+	if lastErr != nil {
+		fmt.Printf("🔧 Attempting forceful cleanup for %s...\n", path)
+		if err := forceRemoveWindows(path); err == nil {
+			return nil
+		}
+	}
+
+	return lastErr
+}
+
+// forceRemoveWindows attempts to force remove files on Windows using system commands
+func forceRemoveWindows(path string) error {
+	// Try using Windows rmdir command with force flag
+	cmd := exec.Command("cmd", "/C", "rmdir", "/S", "/Q", path)
+	cmd.Stdout = nil
+	cmd.Stderr = nil
+	return cmd.Run()
 }
