@@ -7,6 +7,8 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
+	"strings"
 	"syscall"
 	"time"
 
@@ -48,6 +50,34 @@ func Watch() error {
 
 	fmt.Println("👁️ Watching...")
 	return runCmd(toolTempl, "generate", "--watch")
+}
+
+// DevClean manually cleans up development artifacts
+func DevClean() error {
+	fmt.Println("🧹 Cleaning development environment...")
+
+	// Kill any running development processes first
+	killDevProcesses()
+
+	// Wait a moment for processes to fully terminate
+	time.Sleep(2 * time.Second)
+
+	// Now clean up files
+	cleanupTailwind(nil) // Pass nil since we're not killing any process
+	return nil
+}
+
+// killDevProcesses attempts to kill common development processes
+func killDevProcesses() {
+	processes := []string{"air", "tailwindcss", "npx"}
+
+	for _, proc := range processes {
+		fmt.Printf("🔪 Attempting to kill %s processes...\n", proc)
+		// On Windows, use taskkill
+		_ = runCmdQuiet("taskkill", "/F", "/IM", proc+".exe")
+		// On Unix-like systems, this would fail silently which is fine
+		_ = runCmdQuiet("pkill", "-f", proc)
+	}
 }
 
 // ─── Internal Functions ───────────────────────────────────────────────────────
@@ -120,13 +150,40 @@ func runWithShutdown(cmd *exec.Cmd, cleanup func()) error {
 }
 
 // list of files and folders to delete after dev
-
 var packages = []string{
+	// NPM/Node.js artifacts
 	"node_modules",
 	"package.json",
 	"package-lock.json",
+	".npm",
+	"npm-debug.log*",
+	"yarn-error.log*",
+
+	// Development server artifacts
 	"cmd/server/tmp",
 	"tmp/",
+	"build-errors.log",
+
+	// Generated template files (keep source .templ files, remove generated _templ.go)
+	"views/*_templ.go",
+
+	// Build artifacts
+	"bin/",
+	"dist/",
+
+	// Development environment files (optional - uncomment if you want to clean these)
+	// ".env",
+
+	// Go workspace files that might be created during dev
+	"go.work",
+	"go.work.sum",
+
+	// IDE/Editor artifacts
+	".vscode/settings.json",
+
+	// OS-specific artifacts
+	".DS_Store",
+	"Thumbs.db",
 }
 
 func cleanupTailwind(cmd *exec.Cmd) {
@@ -140,22 +197,62 @@ func cleanupTailwind(cmd *exec.Cmd) {
 	}
 	fmt.Println("🧹 Cleaning up...")
 
-	for _, fileOrFolder := range packages {
-		if _, err := os.Stat(fileOrFolder); err == nil {
-			fmt.Printf("📁 Removing %s...\n", fileOrFolder)
-			if err := removeWithRetry(fileOrFolder, 5); err != nil {
-				fmt.Printf("⚠️ Failed to remove %s: %v\n", fileOrFolder, err)
-			} else {
-				fmt.Printf("✅ %s removed\n", fileOrFolder)
-			}
+	for _, pattern := range packages {
+		// Handle glob patterns (like views/*_templ.go)
+		if strings.Contains(pattern, "*") {
+			cleanupGlobPattern(pattern)
 		} else {
-			fmt.Printf("ℹ️ %s not found\n", fileOrFolder)
+			// Handle regular files and directories
+			cleanupPath(pattern)
+		}
+	}
+}
+
+// cleanupPath handles cleanup of individual files/directories
+func cleanupPath(path string) {
+	if _, err := os.Stat(path); err == nil {
+		fmt.Printf("📁 Removing %s...\n", path)
+		if err := removeWithRetry(path, 5); err != nil {
+			fmt.Printf("⚠️ Failed to remove %s: %v\n", path, err)
+		} else {
+			fmt.Printf("✅ %s removed\n", path)
+		}
+	} else {
+		fmt.Printf("ℹ️ %s not found\n", path)
+	}
+}
+
+// cleanupGlobPattern handles cleanup using glob patterns
+func cleanupGlobPattern(pattern string) {
+	matches, err := filepath.Glob(pattern)
+	if err != nil {
+		fmt.Printf("⚠️ Failed to match pattern %s: %v\n", pattern, err)
+		return
+	}
+
+	if len(matches) == 0 {
+		fmt.Printf("ℹ️ No files match pattern %s\n", pattern)
+		return
+	}
+
+	for _, match := range matches {
+		fmt.Printf("📁 Removing %s (matched %s)...\n", match, pattern)
+		if err := removeWithRetry(match, 5); err != nil {
+			fmt.Printf("⚠️ Failed to remove %s: %v\n", match, err)
+		} else {
+			fmt.Printf("✅ %s removed\n", match)
 		}
 	}
 }
 
 // removeWithRetry attempts to remove a file/folder with retries for Windows file locking issues
 func removeWithRetry(path string, maxRetries int) error {
+	// Safety check - don't remove critical system paths
+	if isCriticalPath(path) {
+		fmt.Printf("⚠️ Skipping critical path: %s\n", path)
+		return nil
+	}
+
 	var lastErr error
 	for i := 0; i < maxRetries; i++ {
 		if err := os.RemoveAll(path); err == nil {
@@ -179,6 +276,23 @@ func removeWithRetry(path string, maxRetries int) error {
 	}
 
 	return lastErr
+}
+
+// isCriticalPath checks if a path is critical and should not be removed
+func isCriticalPath(path string) bool {
+	criticalPaths := []string{
+		".", "..", "/", "\\", "C:", "C:\\",
+		"go.mod", "go.sum", "main.go", "magefiles",
+		".git", ".github", "README.md", "LICENSE",
+	}
+
+	for _, critical := range criticalPaths {
+		if path == critical {
+			return true
+		}
+	}
+
+	return false
 }
 
 // forceRemoveWindows attempts to force remove files on Windows using system commands
